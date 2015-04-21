@@ -1,3 +1,3 @@
 Dependencies for Project 'test_jz2440', Target 'test_jz2440': (DO NOT MODIFY !)
-F (..\..\..\..\mcu\s3c2440\start.S)(0x5535F0DD)(--cpu ARM920T -g --apcs=interwork -I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung--pd "__UVISION_VERSION SETA 514"--list .\listings\start.lst --xref -o .\objects\start.o --depend .\objects\start.d)
+F (..\..\..\..\mcu\s3c2440\start.S)(0x5535FBC4)(--cpu ARM920T -g --apcs=interwork -I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung--pd "__UVISION_VERSION SETA 514"--list .\listings\start.lst --xref -o .\objects\start.o --depend .\objects\start.d)
 F (..\..\main.c)(0x5535ED79)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
