@@ -1,0 +1,7 @@
+--cpu ARM920T
+".\objects\start.o"
+".\objects\main.o"
+--strict --scatter ".\test_jz2440.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\test_jz2440.map" -o .\Objects\test_jz2440.axf
