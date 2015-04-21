@@ -36,4 +36,5 @@ Listings/
 Objects/
 *.uvopt
 *.uvgui.*
+cscope.*
 
