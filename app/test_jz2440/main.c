@@ -7,33 +7,21 @@
 
 int main(void)
 {
+	/* disable interrupt first */
+	rt_hw_interrupt_disable();
+	
 	/* enable cpu cache */
-	/* t0003_cpu_icache_enable(); */
-	/* t0003_cpu_dcache_enable(); */
+	rt_hw_cpu_icache_enable();
+	rt_hw_cpu_dcache_enable();
 
-	/* /\* init board *\/ */
-	/* t0003_board_init(); */
+	/* init hardware interrupt */
+	rt_hw_interrupt_init();
 
-	/* /\* init tick *\/ */
-	/* rt_tick_init(); */
+	/* init board */
+	rt_hw_board_init();
 
-	/* /\* init rt-thread kernel object *\/ */
-	/* rt_system_object_init(); */
-
-	/* /\* init timer *\/ */
-	/* rt_timer_init(); */
-
-	/* /\* init scheduler *\/ */
-	/* rt_scheduler_init(); */
-
-	/* /\* init main app *\/ */
-	/* rt_init_main_app(); */
-
-	/* /\* init idle *\/ */
-	/* rt_idle_init(); */
-
-	/* /\* start scheduler *\/ */
-	/* rt_scheduler_start(); */
+	/* show version */
+	rt_show_version();
 
 	return 0;
 }

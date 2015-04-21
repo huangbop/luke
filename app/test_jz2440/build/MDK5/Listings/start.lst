@@ -214,7 +214,7 @@ ARM Macro Assembler    Page 4
   123 00000054         ; Setup Stack for each mode ----------------------------
                        ------------------------
   124 00000054         
-  125 00000054 E59F0058        LDR              R0, =Stack_Top
+  125 00000054 E59F0048        LDR              R0, =Stack_Top
   126 00000058         
   127 00000058         ;  Enter Undefined Instruction Mode and set its Stack Po
                        inter
@@ -248,49 +248,42 @@ _Bit
   150 00000090 E2400008        SUB              R0, R0, #SVC_Stack_Size
   151 00000094         
   152 00000094         ;  Enter User Mode and set its Stack Pointer
-  153 00000094 E321F010        MSR              CPSR_c, #Mode_USR
-  154 00000098 E1A0D000        MOV              SP, R0
-  155 0000009C E24DAB01        SUB              SL, SP, #USR_Stack_Size
-  156 000000A0         
-  157 000000A0         ;  Enter User Mode and set its Stack Pointer
-  158 000000A0 E321F010        MSR              CPSR_c, #Mode_USR
-  159 000000A4         
-  160 000000A4 E1A0D000        MOV              SP, R0
-  161 000000A8 E24DAB01        SUB              SL, SP, #USR_Stack_Size
-  162 000000AC         
+  153 00000094         ;; MSR     CPSR_c, #Mode_USR
+  154 00000094 E1A0D000        MOV              SP, R0
+  155 00000098 E24DAB01        SUB              SL, SP, #USR_Stack_Size
+  156 0000009C         
+  157 0000009C         
+  158 0000009C         ; Enter the C code -------------------------------------
+                       ------------------------
+  159 0000009C         
+  160 0000009C                 IMPORT           __main
+  161 0000009C E59F0004        LDR              R0, =__main
 
 
 
 ARM Macro Assembler    Page 5 
 
 
-  163 000000AC         
-  164 000000AC         
-  165 000000AC         ; Enter the C code -------------------------------------
-                       ------------------------
-  166 000000AC         
-  167 000000AC                 IMPORT           __main
-  168 000000AC E59F0004        LDR              R0, =__main
-  169 000000B0 E12FFF10        BX               R0
-  170 000000B4         
-  171 000000B4         ; User Initial Stack & Heap
-  172 000000B4 00000000 
+  162 000000A0 E12FFF10        BX               R0
+  163 000000A4         
+  164 000000A4         ; User Initial Stack & Heap
+  165 000000A4 00000000 
               00000000         AREA             |.text|, CODE, READONLY
-  173 00000000         
-  174 00000000                 EXPORT           __user_initial_stackheap
-  175 00000000         __user_initial_stackheap
-  176 00000000         
-  177 00000000 E59F000C        LDR              R0, =  Heap_Mem
-  178 00000004 E59F100C        LDR              R1, =(Stack_Mem + USR_Stack_Siz
+  166 00000000         
+  167 00000000                 EXPORT           __user_initial_stackheap
+  168 00000000         __user_initial_stackheap
+  169 00000000         
+  170 00000000 E59F000C        LDR              R0, =  Heap_Mem
+  171 00000004 E59F100C        LDR              R1, =(Stack_Mem + USR_Stack_Siz
 e)
-  179 00000008 E59F2004        LDR              R2, = (Heap_Mem +      Heap_Siz
+  172 00000008 E59F2004        LDR              R2, = (Heap_Mem +      Heap_Siz
 e)
-  180 0000000C E59F3008        LDR              R3, = Stack_Mem
-  181 00000010 E12FFF1E        BX               LR
-  182 00000014         
-  183 00000014         
-  184 00000014         
-  185 00000014                 END
+  173 0000000C E59F3008        LDR              R3, = Stack_Mem
+  174 00000010 E12FFF1E        BX               LR
+  175 00000014         
+  176 00000014         
+  177 00000014         
+  178 00000014                 END
               00000000 
               00000400 
               00000000 
@@ -318,8 +311,8 @@ Symbol: Stack_Mem
    Definitions
       At line 38 in file ..\..\..\..\mcu\s3c2440\start.S
    Uses
-      At line 178 in file ..\..\..\..\mcu\s3c2440\start.S
-      At line 180 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 171 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 173 in file ..\..\..\..\mcu\s3c2440\start.S
 
 Stack_Top 00000488
 
@@ -358,8 +351,8 @@ Symbol: Heap_Mem
    Definitions
       At line 51 in file ..\..\..\..\mcu\s3c2440\start.S
    Uses
-      At line 177 in file ..\..\..\..\mcu\s3c2440\start.S
-      At line 179 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 170 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 172 in file ..\..\..\..\mcu\s3c2440\start.S
 
 __heap_base 00000000
 
@@ -542,7 +535,7 @@ Relocatable symbols
 
 Symbol: .text
    Definitions
-      At line 172 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 165 in file ..\..\..\..\mcu\s3c2440\start.S
    Uses
       None
 Comment: .text unused
@@ -550,9 +543,9 @@ __user_initial_stackheap 00000000
 
 Symbol: __user_initial_stackheap
    Definitions
-      At line 175 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 168 in file ..\..\..\..\mcu\s3c2440\start.S
    Uses
-      At line 174 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 167 in file ..\..\..\..\mcu\s3c2440\start.S
 Comment: __user_initial_stackheap used once
 2 symbols
 
@@ -598,7 +591,7 @@ Symbol: Heap_Size
       At line 47 in file ..\..\..\..\mcu\s3c2440\start.S
    Uses
       At line 51 in file ..\..\..\..\mcu\s3c2440\start.S
-      At line 179 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 172 in file ..\..\..\..\mcu\s3c2440\start.S
 
 IRQ_Stack_Size 00000080
 
@@ -695,9 +688,8 @@ Symbol: Mode_USR
    Definitions
       At line 3 in file ..\..\..\..\mcu\s3c2440\start.S
    Uses
-      At line 153 in file ..\..\..\..\mcu\s3c2440\start.S
-      At line 158 in file ..\..\..\..\mcu\s3c2440\start.S
-
+      None
+Comment: Mode_USR unused
 SVC_Stack_Size 00000008
 
 Symbol: SVC_Stack_Size
@@ -724,8 +716,7 @@ Symbol: USR_Stack_Size
    Uses
       At line 38 in file ..\..\..\..\mcu\s3c2440\start.S
       At line 155 in file ..\..\..\..\mcu\s3c2440\start.S
-      At line 161 in file ..\..\..\..\mcu\s3c2440\start.S
-      At line 178 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 171 in file ..\..\..\..\mcu\s3c2440\start.S
 
 17 symbols
 
@@ -738,9 +729,9 @@ __main 00000000
 
 Symbol: __main
    Definitions
-      At line 167 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 160 in file ..\..\..\..\mcu\s3c2440\start.S
    Uses
-      At line 168 in file ..\..\..\..\mcu\s3c2440\start.S
+      At line 161 in file ..\..\..\..\mcu\s3c2440\start.S
 Comment: __main used once
 1 symbol
 385 symbols in table

@@ -1,5 +1,5 @@
 Dependencies for Project 'test_jz2440', Target 'test_jz2440': (DO NOT MODIFY !)
-F (..\..\..\..\mcu\s3c2440\start.S)(0x5535FBC4)(--cpu ARM920T -g --apcs=interwork -I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung--pd "__UVISION_VERSION SETA 514"--list .\listings\start.lst --xref -o .\objects\start.o --depend .\objects\start.d)
+F (..\..\..\..\mcu\s3c2440\start.S)(0x55364558)(--cpu ARM920T -g --apcs=interwork -I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung--pd "__UVISION_VERSION SETA 514"--list .\listings\start.lst --xref -o .\objects\start.o --depend .\objects\start.d)
 F (..\..\..\..\kernel\rt-thread\src\clock.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\clock.o --omf_browse .\objects\clock.crf --depend .\objects\clock.d)
 I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
 I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
@@ -135,7 +135,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
 I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
 I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
 I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
-F (..\..\main.c)(0x5535ED79)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (..\..\main.c)(0x55363BFD)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 F (..\..\context.S)(0x5535B86E)(--cpu ARM920T -g --apcs=interwork -I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung--pd "__UVISION_VERSION SETA 514"--list .\listings\context.lst --xref -o .\objects\context.o --depend .\objects\context.d)
 F (..\..\interrupt.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\interrupt.o --omf_browse .\objects\interrupt.crf --depend .\objects\interrupt.d)
 I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
@@ -149,6 +149,57 @@ I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
 I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
 F (..\..\rtconfig.h)(0x5535FFBC)()
 F (..\..\stack.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\stack.o --omf_browse .\objects\stack.crf --depend .\objects\stack.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\cpu.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\cpu.o --omf_browse .\objects\cpu.crf --depend .\objects\cpu.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\board.c)(0x55363AD7)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\board.o --omf_browse .\objects\board.crf --depend .\objects\board.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\board.h)(0x5535B86A)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+I (..\..\..\test_jz2440\serial.h)(0x5535B86E)
+F (..\..\serial.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\serial.o --omf_browse .\objects\serial.crf --depend .\objects\serial.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\serial.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\system_clock.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\system_clock.o --omf_browse .\objects\system_clock.crf --depend .\objects\system_clock.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5475F2FA)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\mmu.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork --split_sections -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440 -I..\..\..\..\mcu\s3c2440-I D:\Keil_v5\ARM\RV31\INC-I D:\Keil_v5\ARM\CMSIS\Include-I D:\Keil_v5\ARM\Inc\Samsung-D__UVISION_VERSION="514"-o .\objects\mmu.o --omf_browse .\objects\mmu.crf --depend .\objects\mmu.d)
 I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
 I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
 I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
