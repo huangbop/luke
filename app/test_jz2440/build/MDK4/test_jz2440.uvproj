@@ -44,14 +44,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\Objects\</OutputDirectory>
+          <OutputDirectory>.\Output\</OutputDirectory>
           <OutputName>test_jz2440</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>.\Listings\</ListingPath>
+          <ListingPath>.\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -72,8 +72,6 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
-            <nStopB1X>0</nStopB1X>
-            <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
@@ -135,7 +133,7 @@
           <Target>
             <UseTarget>1</UseTarget>
             <LoadApplicationAtStartup>0</LoadApplicationAtStartup>
-            <RunToMain>0</RunToMain>
+            <RunToMain>1</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
             <RestoreWatchpoints>1</RestoreWatchpoints>
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
@@ -143,6 +141,7 @@
             <RestoreToolbox>1</RestoreToolbox>
             <RestoreTracepoints>1</RestoreTracepoints>
             <RestoreSysVw>1</RestoreSysVw>
+            <UsePdscDebugDescription>0</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>0</TargetSelection>
@@ -348,13 +347,13 @@
             <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
-            <OneElfS>1</OneElfS>
+            <OneElfS>0</OneElfS>
             <Strict>0</Strict>
             <EnumInt>0</EnumInt>
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>2</wLevel>
+            <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>0</uC99>
@@ -363,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\kernel\rt-thread\include;..\..\..\test_jz2440;..\..\..\..\mcu\s3c2440</IncludePath>
+              <IncludePath>..\..\..\..\mcu\s3c2440;..\..\..\..\kernel\rt-thread\include;..\..\..\test_jz2440</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -470,6 +469,11 @@
               <FilePath>..\..\..\..\kernel\rt-thread\src\module.c</FilePath>
             </File>
             <File>
+              <FileName>module.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\module.h</FilePath>
+            </File>
+            <File>
               <FileName>object.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\kernel\rt-thread\src\object.c</FilePath>
@@ -500,29 +504,9 @@
           <GroupName>test_jz2440</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
+              <FileName>board.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>context.S</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\context.S</FilePath>
-            </File>
-            <File>
-              <FileName>interrupt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\interrupt.c</FilePath>
-            </File>
-            <File>
-              <FileName>rtconfig.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\rtconfig.h</FilePath>
-            </File>
-            <File>
-              <FileName>stack.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\stack.c</FilePath>
+              <FilePath>..\..\board.c</FilePath>
             </File>
             <File>
               <FileName>cpu.c</FileName>
@@ -530,9 +514,19 @@
               <FilePath>..\..\cpu.c</FilePath>
             </File>
             <File>
-              <FileName>board.c</FileName>
+              <FileName>interrupt.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\board.c</FilePath>
+              <FilePath>..\..\interrupt.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>mmu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\mmu.c</FilePath>
             </File>
             <File>
               <FileName>serial.c</FileName>
@@ -540,14 +534,19 @@
               <FilePath>..\..\serial.c</FilePath>
             </File>
             <File>
+              <FileName>stack.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\stack.c</FilePath>
+            </File>
+            <File>
               <FileName>system_clock.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\system_clock.c</FilePath>
             </File>
             <File>
-              <FileName>mmu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\mmu.c</FilePath>
+              <FileName>context.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\context.S</FilePath>
             </File>
           </Files>
         </Group>

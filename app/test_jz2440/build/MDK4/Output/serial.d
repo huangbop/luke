@@ -1,0 +1,12 @@
+.\output\serial.o: ..\..\serial.c
+.\output\serial.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\serial.o: ..\..\..\test_jz2440\rtconfig.h
+.\output\serial.o: ..\..\..\..\kernel\rt-thread\include\rtdebug.h
+.\output\serial.o: ..\..\..\..\kernel\rt-thread\include\rtdef.h
+.\output\serial.o: D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h
+.\output\serial.o: ..\..\..\..\kernel\rt-thread\include\rtservice.h
+.\output\serial.o: ..\..\..\..\kernel\rt-thread\include\rtm.h
+.\output\serial.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\serial.o: ..\..\serial.h
+.\output\serial.o: ..\..\..\..\kernel\rt-thread\include\rthw.h
+.\output\serial.o: ..\..\..\..\mcu\s3c2440\s3c24x0.h

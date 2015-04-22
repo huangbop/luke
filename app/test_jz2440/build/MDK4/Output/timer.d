@@ -1,0 +1,10 @@
+.\output\timer.o: ..\..\..\..\kernel\rt-thread\src\timer.c
+.\output\timer.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\timer.o: ..\..\..\test_jz2440\rtconfig.h
+.\output\timer.o: ..\..\..\..\kernel\rt-thread\include\rtdebug.h
+.\output\timer.o: ..\..\..\..\kernel\rt-thread\include\rtdef.h
+.\output\timer.o: D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h
+.\output\timer.o: ..\..\..\..\kernel\rt-thread\include\rtservice.h
+.\output\timer.o: ..\..\..\..\kernel\rt-thread\include\rtm.h
+.\output\timer.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\timer.o: ..\..\..\..\kernel\rt-thread\include\rthw.h

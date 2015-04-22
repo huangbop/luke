@@ -1,0 +1,10 @@
+.\output\idle.o: ..\..\..\..\kernel\rt-thread\src\idle.c
+.\output\idle.o: ..\..\..\..\kernel\rt-thread\include\rthw.h
+.\output\idle.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\idle.o: ..\..\..\test_jz2440\rtconfig.h
+.\output\idle.o: ..\..\..\..\kernel\rt-thread\include\rtdebug.h
+.\output\idle.o: ..\..\..\..\kernel\rt-thread\include\rtdef.h
+.\output\idle.o: D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h
+.\output\idle.o: ..\..\..\..\kernel\rt-thread\include\rtservice.h
+.\output\idle.o: ..\..\..\..\kernel\rt-thread\include\rtm.h
+.\output\idle.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h

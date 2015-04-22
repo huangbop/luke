@@ -1,0 +1,10 @@
+.\output\memheap.o: ..\..\..\..\kernel\rt-thread\src\memheap.c
+.\output\memheap.o: ..\..\..\..\kernel\rt-thread\include\rthw.h
+.\output\memheap.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\memheap.o: ..\..\..\test_jz2440\rtconfig.h
+.\output\memheap.o: ..\..\..\..\kernel\rt-thread\include\rtdebug.h
+.\output\memheap.o: ..\..\..\..\kernel\rt-thread\include\rtdef.h
+.\output\memheap.o: D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h
+.\output\memheap.o: ..\..\..\..\kernel\rt-thread\include\rtservice.h
+.\output\memheap.o: ..\..\..\..\kernel\rt-thread\include\rtm.h
+.\output\memheap.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h

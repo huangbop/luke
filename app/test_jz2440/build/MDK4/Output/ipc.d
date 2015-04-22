@@ -1,0 +1,10 @@
+.\output\ipc.o: ..\..\..\..\kernel\rt-thread\src\ipc.c
+.\output\ipc.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\ipc.o: ..\..\..\test_jz2440\rtconfig.h
+.\output\ipc.o: ..\..\..\..\kernel\rt-thread\include\rtdebug.h
+.\output\ipc.o: ..\..\..\..\kernel\rt-thread\include\rtdef.h
+.\output\ipc.o: D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h
+.\output\ipc.o: ..\..\..\..\kernel\rt-thread\include\rtservice.h
+.\output\ipc.o: ..\..\..\..\kernel\rt-thread\include\rtm.h
+.\output\ipc.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\ipc.o: ..\..\..\..\kernel\rt-thread\include\rthw.h

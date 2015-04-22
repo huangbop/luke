@@ -1,0 +1,10 @@
+.\output\mempool.o: ..\..\..\..\kernel\rt-thread\src\mempool.c
+.\output\mempool.o: ..\..\..\..\kernel\rt-thread\include\rthw.h
+.\output\mempool.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\mempool.o: ..\..\..\test_jz2440\rtconfig.h
+.\output\mempool.o: ..\..\..\..\kernel\rt-thread\include\rtdebug.h
+.\output\mempool.o: ..\..\..\..\kernel\rt-thread\include\rtdef.h
+.\output\mempool.o: D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h
+.\output\mempool.o: ..\..\..\..\kernel\rt-thread\include\rtservice.h
+.\output\mempool.o: ..\..\..\..\kernel\rt-thread\include\rtm.h
+.\output\mempool.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h

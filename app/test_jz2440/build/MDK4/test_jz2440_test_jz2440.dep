@@ -1,0 +1,210 @@
+Dependencies for Project 'test_jz2440', Target 'test_jz2440': (DO NOT MODIFY !)
+F (..\..\..\..\mcu\s3c2440\start.S)(0x55364558)(--cpu ARM920T -g --apcs=interwork -I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung--list .\start.lst --xref -o .\output\start.o --depend .\output\start.d)
+F (..\..\..\..\kernel\rt-thread\src\clock.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\clock.o --omf_browse .\output\clock.crf --depend .\output\clock.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\device.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\device.o --omf_browse .\output\device.crf --depend .\output\device.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\idle.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\idle.o --omf_browse .\output\idle.crf --depend .\output\idle.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\ipc.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\ipc.o --omf_browse .\output\ipc.crf --depend .\output\ipc.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\irq.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\irq.o --omf_browse .\output\irq.crf --depend .\output\irq.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\kservice.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\kservice.o --omf_browse .\output\kservice.crf --depend .\output\kservice.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\mem.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\mem.o --omf_browse .\output\mem.crf --depend .\output\mem.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\memheap.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\memheap.o --omf_browse .\output\memheap.crf --depend .\output\memheap.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\mempool.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\mempool.o --omf_browse .\output\mempool.crf --depend .\output\mempool.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\module.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\module.o --omf_browse .\output\module.crf --depend .\output\module.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\src\module.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\module.h)(0x5535B86E)()
+F (..\..\..\..\kernel\rt-thread\src\object.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\object.o --omf_browse .\output\object.crf --depend .\output\object.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\scheduler.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\scheduler.o --omf_browse .\output\scheduler.crf --depend .\output\scheduler.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\slab.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\slab.o --omf_browse .\output\slab.crf --depend .\output\slab.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\thread.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\thread.o --omf_browse .\output\thread.crf --depend .\output\thread.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+F (..\..\..\..\kernel\rt-thread\src\timer.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\timer.o --omf_browse .\output\timer.crf --depend .\output\timer.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+F (..\..\board.c)(0x55363AD7)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\board.o --omf_browse .\output\board.crf --depend .\output\board.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\board.h)(0x5535B86A)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+I (..\..\..\test_jz2440\serial.h)(0x5535B86E)
+F (..\..\cpu.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\cpu.o --omf_browse .\output\cpu.crf --depend .\output\cpu.d)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\interrupt.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\interrupt.o --omf_browse .\output\interrupt.crf --depend .\output\interrupt.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\main.c)(0x55363BFD)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\main.o --omf_browse .\output\main.crf --depend .\output\main.d)
+F (..\..\mmu.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\mmu.o --omf_browse .\output\mmu.crf --depend .\output\mmu.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\serial.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\serial.o --omf_browse .\output\serial.crf --depend .\output\serial.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\serial.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rthw.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\stack.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\stack.o --omf_browse .\output\stack.crf --depend .\output\stack.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\system_clock.c)(0x5535B86E)(-c --cpu ARM920T -g -O0 --apcs=interwork -I..\..\..\..\mcu\s3c2440 -I..\..\..\..\kernel\rt-thread\include -I..\..\..\test_jz2440-I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung-o .\output\system_clock.o --omf_browse .\output\system_clock.crf --depend .\output\system_clock.d)
+I (..\..\..\..\kernel\rt-thread\include\rtthread.h)(0x5535B86E)
+I (..\..\..\test_jz2440\rtconfig.h)(0x5535FFBC)
+I (..\..\..\..\kernel\rt-thread\include\rtdebug.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtdef.h)(0x5535B86E)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C7C554)
+I (..\..\..\..\kernel\rt-thread\include\rtservice.h)(0x5535B86E)
+I (..\..\..\..\kernel\rt-thread\include\rtm.h)(0x5535B86E)
+I (..\..\..\..\mcu\s3c2440\s3c24x0.h)(0x5535B86E)
+F (..\..\context.S)(0x5535B86E)(--cpu ARM920T -g --apcs=interwork -I D:\Keil\ARM\RV31\INC-I D:\Keil\ARM\CMSIS\Include-I D:\Keil\ARM\Inc\Samsung--list .\context.lst --xref -o .\output\context.o --depend .\output\context.d)

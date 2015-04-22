@@ -1,0 +1,10 @@
+.\output\irq.o: ..\..\..\..\kernel\rt-thread\src\irq.c
+.\output\irq.o: ..\..\..\..\kernel\rt-thread\include\rthw.h
+.\output\irq.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\irq.o: ..\..\..\test_jz2440\rtconfig.h
+.\output\irq.o: ..\..\..\..\kernel\rt-thread\include\rtdebug.h
+.\output\irq.o: ..\..\..\..\kernel\rt-thread\include\rtdef.h
+.\output\irq.o: D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h
+.\output\irq.o: ..\..\..\..\kernel\rt-thread\include\rtservice.h
+.\output\irq.o: ..\..\..\..\kernel\rt-thread\include\rtm.h
+.\output\irq.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h

@@ -1,0 +1,10 @@
+.\output\system_clock.o: ..\..\system_clock.c
+.\output\system_clock.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\system_clock.o: ..\..\..\test_jz2440\rtconfig.h
+.\output\system_clock.o: ..\..\..\..\kernel\rt-thread\include\rtdebug.h
+.\output\system_clock.o: ..\..\..\..\kernel\rt-thread\include\rtdef.h
+.\output\system_clock.o: D:\Keil\ARM\ARMCC\bin\..\include\stdarg.h
+.\output\system_clock.o: ..\..\..\..\kernel\rt-thread\include\rtservice.h
+.\output\system_clock.o: ..\..\..\..\kernel\rt-thread\include\rtm.h
+.\output\system_clock.o: ..\..\..\..\kernel\rt-thread\include\rtthread.h
+.\output\system_clock.o: ..\..\..\..\mcu\s3c2440\s3c24x0.h
