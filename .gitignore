@@ -32,9 +32,8 @@
 *.dSYM/
 
 #
-Listings/
-Objects/
+Output/
+Listing/
 *.uvopt
 *.uvgui.*
 cscope.*
-
