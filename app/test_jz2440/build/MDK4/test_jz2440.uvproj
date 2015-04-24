@@ -519,11 +519,6 @@
               <FilePath>..\..\interrupt.c</FilePath>
             </File>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\main.c</FilePath>
-            </File>
-            <File>
               <FileName>mmu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\mmu.c</FilePath>
@@ -547,6 +542,16 @@
               <FileName>context.S</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\context.S</FilePath>
+            </File>
+            <File>
+              <FileName>startup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\startup.c</FilePath>
+            </File>
+            <File>
+              <FileName>console.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\console.c</FilePath>
             </File>
           </Files>
         </Group>
