@@ -13,7 +13,7 @@
 // <item description="32">32</item>
 // <item description="256">256</item>
 // </integer>
-#define RT_THREAD_PRIORITY_MAX	256
+#define RT_THREAD_PRIORITY_MAX	32
 // <integer name="RT_TICK_PER_SECOND" description="OS tick per second" default="100" />
 #define RT_TICK_PER_SECOND	100
 // <section name="RT_DEBUG" description="Kernel Debug Configuration" default="true" >

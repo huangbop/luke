@@ -188,7 +188,7 @@ void rt_hw_board_init(void)
 	rt_hw_uart_init();
 
 	/* initialize mmu */
-	//rt_hw_mmu_init();
+	rt_hw_mmu_init();
 
 	/* initialize timer4 */
 	rt_hw_timer_init();
