@@ -39,3 +39,6 @@ Listing/
 cscope.*
 *.dep
 *.bak
+Debug/
+Release/
+
