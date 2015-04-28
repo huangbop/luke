@@ -404,13 +404,6 @@
       <Groups>
         <Group>
           <GroupName>s3c2440</GroupName>
-          <Files>
-            <File>
-              <FileName>start.S</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\..\..\mcu\s3c2440\start.S</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>jz2440</GroupName>
@@ -504,6 +497,16 @@
           <GroupName>test_jz2440</GroupName>
           <Files>
             <File>
+              <FileName>start.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\start.S</FilePath>
+            </File>
+            <File>
+              <FileName>startup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\startup.c</FilePath>
+            </File>
+            <File>
               <FileName>board.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\board.c</FilePath>
@@ -542,11 +545,6 @@
               <FileName>context.S</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\context.S</FilePath>
-            </File>
-            <File>
-              <FileName>startup.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\startup.c</FilePath>
             </File>
             <File>
               <FileName>console.c</FileName>
