@@ -1,0 +1,15 @@
+
+LR 0x30000000 0x20000
+{
+	ER_ROM +0 0x20000
+	{
+		start.o (RESET, +FIRST)
+		* (+RO)
+	}
+
+	ER_RW +0 0x10000
+	{
+		* (+RW)
+		* (+ZI)
+	}
+}
