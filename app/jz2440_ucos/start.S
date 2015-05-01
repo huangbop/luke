@@ -24,7 +24,14 @@ __irq_stack		SPACE 	256
 __irq_stack_end
 __fiq_stack		SPACE	256
 __fiq_stack_end
-	
+__usr_stack		SPACE	256
+__usr_stack_end	
+
+	;; Heap
+	AREA	HEAP, NOINIT, READWRITE, ALIGN=3
+__heap		SPACE 	0
+__heap_end	
+
 
 	;; Reset entry
         PRESERVE8
@@ -79,6 +86,14 @@ reset_handler
 	LDR	R0, =__main
 	BX	R0
 
+
+	EXPORT	__user_initial_stackheap
+__user_initial_stackheap
+	LDR	R0, =__heap
+	LDR	R1, =__usr_stack_end
+	LDR	R2, =__heap_end
+	LDR	R3, =__usr_stack
+	BX	LR
 
 	END
 	
