@@ -157,7 +157,7 @@
             <CpuDllArguments></CpuDllArguments>
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
-            <InitializationFile>.\Ext_RAM.ini</InitializationFile>
+            <InitializationFile>..\..\Ext_RAM.ini</InitializationFile>
             <Driver>BIN\UL2ARM.DLL</Driver>
           </TargetDlls>
         </DebugOption>
