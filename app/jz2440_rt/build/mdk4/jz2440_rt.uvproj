@@ -511,6 +511,11 @@
           <GroupName>jz2440_rt</GroupName>
           <Files>
             <File>
+              <FileName>application.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\application.c</FilePath>
+            </File>
+            <File>
               <FileName>start.S</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\start.S</FilePath>

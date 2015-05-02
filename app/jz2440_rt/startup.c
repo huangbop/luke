@@ -12,6 +12,8 @@ int main()
 
 	rt_system_scheduler_init();
 
+	application_init();
+
 	rt_thread_idle_init();
 
 	rt_system_scheduler_start();
