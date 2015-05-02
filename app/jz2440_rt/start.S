@@ -39,7 +39,7 @@ __heap_end
 	AREA 	RESET, CODE, READONLY
         ARM
 	ENTRY
-
+__start
 	B	reset_handler
 	B	und_handler
 	B	swi_handler

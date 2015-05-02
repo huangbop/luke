@@ -343,7 +343,7 @@
             <RvctStartVector></RvctStartVector>
           </ArmAdsMisc>
           <Cads>
-            <interw>1</interw>
+            <interw>0</interw>
             <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
@@ -362,11 +362,11 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath></IncludePath>
+              <IncludePath>..\..\..\..\kernel\rt-thread\include;..\..\..\jz2440_rt</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
-            <interw>1</interw>
+            <interw>0</interw>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <thumb>0</thumb>
@@ -392,7 +392,7 @@
             <TextAddressRange>0x00000000</TextAddressRange>
             <DataAddressRange>0x40000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile>..\..\rom.sct</ScatterFile>
+            <ScatterFile>..\..\ram.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc></Misc>
@@ -404,12 +404,108 @@
       <Groups>
         <Group>
           <GroupName>s3c2440</GroupName>
+          <Files>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\mcu\s3c2440\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>s3c2440_clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\mcu\s3c2440\s3c2440_clock.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>jz2440</GroupName>
+          <Files>
+            <File>
+              <FileName>board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\board\jz2440\board.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>rt_thread</GroupName>
+          <Files>
+            <File>
+              <FileName>clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\device.c</FilePath>
+            </File>
+            <File>
+              <FileName>idle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\idle.c</FilePath>
+            </File>
+            <File>
+              <FileName>ipc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\ipc.c</FilePath>
+            </File>
+            <File>
+              <FileName>irq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\irq.c</FilePath>
+            </File>
+            <File>
+              <FileName>kservice.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\kservice.c</FilePath>
+            </File>
+            <File>
+              <FileName>mem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\mem.c</FilePath>
+            </File>
+            <File>
+              <FileName>memheap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\memheap.c</FilePath>
+            </File>
+            <File>
+              <FileName>mempool.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\mempool.c</FilePath>
+            </File>
+            <File>
+              <FileName>module.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\module.c</FilePath>
+            </File>
+            <File>
+              <FileName>object.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\object.c</FilePath>
+            </File>
+            <File>
+              <FileName>scheduler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\scheduler.c</FilePath>
+            </File>
+            <File>
+              <FileName>slab.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\slab.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\thread.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\rt-thread\src\timer.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>jz2440_rt</GroupName>
@@ -423,6 +519,21 @@
               <FileName>startup.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\startup.c</FilePath>
+            </File>
+            <File>
+              <FileName>context.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\context.S</FilePath>
+            </File>
+            <File>
+              <FileName>stack.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\stack.c</FilePath>
+            </File>
+            <File>
+              <FileName>console.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\console.c</FilePath>
             </File>
           </Files>
         </Group>
