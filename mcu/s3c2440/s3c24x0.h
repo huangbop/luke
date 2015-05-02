@@ -1,25 +1,9 @@
-/*
- * File      : s3c24x0.h
- * This file is part of RT-Thread RTOS
- * COPYRIGHT (C) 2006, RT-Thread Develop Team
- *
- * The license and distribution terms for this file may be
- * found in the file LICENSE in this distribution or at
- * http://openlab.rt-thread.com/license/LICENSE
- *
- * Change Logs:
- * Date           Author       Notes
- * 2009-12-11     Bernard      first version
- */
-
 #ifndef __S3C24X0_H__
 #define __S3C24X0_H__
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <rtthread.h>
 
 /**
  * @addtogroup S3C24X0
@@ -579,28 +563,6 @@ extern "C" {
 #define UNDEFMODE		0x1b
 #define MODEMASK		0x1f
 #define NOINT			0xc0
-
-struct rt_hw_register
-{
-	rt_uint32_t r0;
-	rt_uint32_t r1;
-	rt_uint32_t r2;
-	rt_uint32_t r3;
-	rt_uint32_t r4;
-	rt_uint32_t r5;
-	rt_uint32_t r6;
-	rt_uint32_t r7;
-	rt_uint32_t r8;
-	rt_uint32_t r9;
-	rt_uint32_t r10;
-	rt_uint32_t fp;
-	rt_uint32_t ip;
-	rt_uint32_t sp;
-	rt_uint32_t lr;
-	rt_uint32_t pc;
-	rt_uint32_t cpsr;
-	rt_uint32_t ORIG_r0;
-};
 
 #ifdef __cplusplus
 }

@@ -362,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath></IncludePath>
+              <IncludePath>..\..\..\..\kernel\ucos_ii;..\..\..\jz2440_ucos;..\..\..\..\mcu\s3c2440</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -420,6 +420,76 @@
               <FileName>startup.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\startup.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_cpu_a.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\os_cpu_a.s</FilePath>
+            </File>
+            <File>
+              <FileName>os_cpu_c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\os_cpu_c.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ucos_ii</GroupName>
+          <Files>
+            <File>
+              <FileName>os_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_dbg_r.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_dbg_r.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_flag.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_flag.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_mbox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_mbox.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_mem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_mem.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_mutex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_mutex.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_q.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_q.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_sem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_sem.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_time.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_tmr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\kernel\ucos_ii\os_tmr.c</FilePath>
             </File>
           </Files>
         </Group>
