@@ -555,6 +555,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\mmu.c</FilePath>
             </File>
+            <File>
+              <FileName>trap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\trap.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

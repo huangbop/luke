@@ -39,35 +39,41 @@ __heap_end
 	AREA 	RESET, CODE, READONLY
         ARM
 	ENTRY
-__start
 	B	reset_handler
-	B	und_handler
-	B	swi_handler
-	B	pabt_handler
-	B	dabt_handler
+	LDR	pc, _und_handler
+	LDR	pc, _swi_handler
+	LDR	pc, _pabt_handler
+	LDR	pc, _dabt_handler
 	NOP
-	B	irq_handler
-	B	fiq_handler
+	LDR	pc, _irq_handler
+	LDR	pc, _fiq_handler
 
+
+_und_handler	DCD	und_handler
+_swi_handler	DCD	swi_handler
+_pabt_handler	DCD	pabt_handler
+_dabt_handler	DCD	dabt_handler
+_irq_handler	DCD	irq_handler
+_fiq_handler	DCD	fiq_handler	
+	
 
 und_handler
 swi_handler
 pabt_handler
-dabt_handler
-	B	und_handler
+dabt_handler	B	und_handler
 
-
-irq_handler 	PROC
-	STMFD	sp!, {r0-r12, lr}
-	
-	LDMFD	sp!, {r0-r12, lr}
-	SUBS	pc, lr, #4
-
-	ENDP
-	
 
 fiq_handler
 	B	fiq_handler
+
+
+	IMPORT	do_irq
+irq_handler
+	STMFD	sp!, {r0-r12, lr}
+	BL	do_irq
+	LDMFD	sp!, {r0-r12, lr}
+	SUBS	pc, lr, #4
+	
 
 reset_handler
 	;; Set stack for every mode
