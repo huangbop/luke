@@ -6,7 +6,9 @@ void board_init(void)
 	
 	uart_init();
 
-	timer_init();
+	key_init();
 
+	timer_init();
 	
+	mmu_init();
 }

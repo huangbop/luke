@@ -362,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\kernel\rt-thread\include;..\..\..\jz2440_rt</IncludePath>
+              <IncludePath>..\..\..\..\kernel\rt-thread\include;..\..\..\jz2440_rt;..\..\..\..\mcu\s3c2440</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -429,6 +429,11 @@
               <FileName>board.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\board\jz2440\board.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\board\jz2440\key.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -544,6 +549,11 @@
               <FileName>console.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\console.c</FilePath>
+            </File>
+            <File>
+              <FileName>mmu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\mmu.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -225,62 +225,23 @@ void mmu_setmtt(int vaddrStart,int vaddrEnd,int paddrStart,int attr)
     }
 }
 
-void rt_hw_mmu_init(void)
+void mmu_init(void)
 {
-	int i,j;
 	//========================== IMPORTANT NOTE =========================
 	//The current stack and code area can't be re-mapped in this routine.
 	//If you want memory map mapped freely, your own sophiscated mmu
 	//initialization code is needed.
 	//===================================================================
 
-#if 0
-	mmu_disable_dcache();
-	mmu_disable_icache();
 
-	//If write-back is used,the DCache should be cleared.
-	for(i=0;i<64;i++)
-		for(j=0;j<8;j++)
-			mmu_clean_invalidated_cache_index((i<<26)|(j<<5));
-
-	mmu_invalidate_icache();
-
-	//To complete mmu_Init() fast, Icache may be turned on here.
-	mmu_enable_icache();
-
-	mmu_disable();
-	mmu_invalidate_tlb();
-
-	//mmu_setmtt(int vaddrStart,int vaddrEnd,int paddrStart,int attr);
-	mmu_setmtt(0x00000000,0x07f00000,0x00000000,RW_CNB);  //bank0
-	mmu_setmtt(0x00000000,0x03f00000,(int)0x30000000,RW_CB);  //bank0
-	mmu_setmtt(0x04000000,0x07f00000,0,RW_NCNB);  			//bank0
-	mmu_setmtt(0x08000000,0x0ff00000,0x08000000,RW_CNB);  //bank1
-	mmu_setmtt(0x10000000,0x17f00000,0x10000000,RW_NCNB); //bank2
-	mmu_setmtt(0x18000000,0x1ff00000,0x18000000,RW_NCNB); //bank3
-	//mmu_setmtt(0x20000000,0x27f00000,0x20000000,RW_CB); //bank4
-	mmu_setmtt(0x20000000,0x27f00000,0x20000000,RW_NCNB); //bank4 for  DM9000
-	mmu_setmtt(0x28000000,0x2ff00000,0x28000000,RW_NCNB); //bank5
-	//30f00000->30100000, 31000000->30200000
-	mmu_setmtt(0x30000000,0x30100000,0x30000000,RW_CB);	  //bank6-1
-	mmu_setmtt(0x30200000,0x33e00000,0x30200000,RW_CB); //bank6-2
-
-	mmu_setmtt(0x33f00000,0x34000000,0x33f00000,RW_NCNB);   //bank6-3
-	mmu_setmtt(0x38000000,0x3ff00000,0x38000000,RW_NCNB); //bank7
-
-	mmu_setmtt(0x40000000,0x47f00000,0x40000000,RW_NCNB); //SFR
-	mmu_setmtt(0x48000000,0x5af00000,0x48000000,RW_NCNB); //SFR
-	mmu_setmtt(0x5b000000,0x5b000000,0x5b000000,RW_NCNB); //SFR
-	mmu_setmtt(0x5b100000,0xfff00000,0x5b100000,RW_FAULT);//not used
-	mmu_setmtt(0x60000000,0x67f00000,0x60000000,RW_NCNB); //SFR
-#endif
 	mmu_setmtt(0x30000000,0x30100000,0x30000000, RW_CB); /* self */
 		
-	mmu_setmtt(0x56000000,0x56100000,(int)0x56000000, RW_CB); /* regs */
-	mmu_setmtt(0x4a000000,0x4a100000,(int)0x4a000000, RW_CB); 
+	mmu_setmtt(0x56000000,0x56100000,(int)0x56000000, RW_CB); /* GPF */
+	mmu_setmtt(0x51000000,0x51100000,(int)0x51000000, RW_CB); /* timer */
+	mmu_setmtt(0x4a000000,0x4a100000,(int)0x4a000000, RW_CB); /* interrupt */
+	mmu_setmtt(0x50000000,0x50100000,(int)0x50000000, RW_CB); /* uart */
 
 	mmu_setmtt(0x00000000,0x00100000,(int)0x30000000, RW_CB); /* int vectors */
-
 
 
 	/* mmu_setmtt(0x00000000,0x00100000,0x30000000,RW_CB);  */
@@ -297,26 +258,6 @@ void rt_hw_mmu_init(void)
 	/* mmu_enable_alignfault(); */
 
 	mmu_enable();
-
-
-#define GPFCON              (*(volatile unsigned long *)0x56000050)
-#define GPFDAT              (*(volatile unsigned long *)0x56000054)
-#define GPFUP               (*(volatile unsigned long *)0x56000058)
-
-	GPFDAT = 0xff; 		/* turn off leds */
-	
-
-	GPFCON &= ~0x33;
-	GPFCON |= 0x22;
-	
-#define INTMSK     (*(volatile unsigned *)0x4a000008)
-	INTMSK = 0x0;
-
-	/* rt_hw_interrupt_enable(0x13); */
-
-	while (1);
-
-
 
 }
 
