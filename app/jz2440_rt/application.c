@@ -30,7 +30,7 @@ void application_init(void)
 	int res;
 
 	res = rt_thread_init(&print0, "print0", print0_entry, 0,
-			     print0_stack, 512, 8, 20);
+			     print0_stack, 512, 7, 20);
 
 	res = rt_thread_init(&print1, "print1", print1_entry, 0,
 			     print1_stack, 512, 8, 20);

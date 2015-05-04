@@ -57,8 +57,11 @@ dabt_handler
 	B	und_handler
 
 
-irq_handler
-	B	irq_handler
+irq_handler	PROC
+	
+	SUBS	pc, lr, #4
+
+	ENDP
 
 fiq_handler
 	B	fiq_handler
