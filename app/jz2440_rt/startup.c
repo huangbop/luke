@@ -10,6 +10,8 @@ int main()
 
 	rt_show_version();
 
+	rt_system_timer_init();
+
 	rt_system_scheduler_init();
 
 	application_init();

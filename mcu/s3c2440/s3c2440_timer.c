@@ -13,6 +13,6 @@ void timer_init(void)
 
 	TCON   = 0x09;
 
-//	INTMSK &= ~(1 << 10);	/* Unmask timer0 */
+	INTMSK &= ~(1 << 10);	/* Unmask timer0 */
 
 }

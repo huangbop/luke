@@ -60,12 +60,26 @@ rt_hw_context_switch	PROC
 	LDMFD	sp!, {r0-r12, lr, pc}^
 	ENDP
 
+	IMPORT	interrupt_switch_flag
+	IMPORT	interrupt_switch_from
+	IMPORT	interrupt_switch_to
+
 ;; void rt_hw_context_switch_interrupt(unsigned from, unsigned to)
 rt_hw_context_switch_interrupt	PROC
 	EXPORT	rt_hw_context_switch_interrupt
-
+	LDR	r2, =interrupt_switch_flag
+	LDR	r3, [r2]
+	CMP	r3, #1
+	BEQ	_reswitch
+	MOV	r3, #1
+	STR	r3, [r2]
+	LDR	r2, =interrupt_switch_from
+	STR	r0, [r2]
+_reswitch	
+	LDR	r2, =interrupt_switch_to
+	STR	r1, [r2]
+	BX	lr
 	ENDP
-	
 
 	END
 
