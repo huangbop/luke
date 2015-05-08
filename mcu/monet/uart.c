@@ -10,6 +10,13 @@ void uart_putc(const char c)
 	rUART.xmit.bits.data = c; /* A624 */
 }
 
+void uart_puts(const char *s)
+{
+	while (*s) {
+		uart_putc(*s);
+		s++;
+	}
+}
 
 int uart_init(void)
 {

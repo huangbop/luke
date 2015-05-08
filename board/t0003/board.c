@@ -5,14 +5,6 @@
 #include "mTimer.h"
 
 
-
-
-
-
-
-
-
-
 void board_init(void)
 {
 	int i;
@@ -21,9 +13,5 @@ void board_init(void)
 
 	uart_init();
 
-	for (i = 0; i < 100; i++)
-		uart_putc('a');
-
-	
 	
 }

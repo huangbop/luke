@@ -1,10 +1,17 @@
 
+void show_version(void)
+{
+	rt_kprintf("Copyright (C) Memoright 2015\n");
+	rt_kprintf("Hynix flash diagnostic tool, firmware version V1.0.0\n");
+	rt_kprintf("\n");
+}
+
 
 int main()
 {
 	board_init();
 
-	rt_show_version();
+	show_version();
 	
 	rt_system_timer_init();
 
