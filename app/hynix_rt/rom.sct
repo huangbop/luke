@@ -40,5 +40,12 @@ LR_REG 0x1C000000
 		mSFRS2.o (rHDC_TEST_PIN)
 	}
 
+	; rUART
+ 	SOC_UART	0x1C00A620 UNINIT
+	{
+		mUART.o (rSOC_UART)
+	}
+
+
 }
 

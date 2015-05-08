@@ -8,13 +8,6 @@
 
 
 
-void monet_clock_init(void)
-{
-
-
-}
-
-
 
 
 
@@ -22,9 +15,15 @@ void monet_clock_init(void)
 
 void board_init(void)
 {
+	int i;
+	
 	system_clock_init();
 
+	uart_init();
 
+	for (i = 0; i < 100; i++)
+		uart_putc('a');
 
+	
 	
 }

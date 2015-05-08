@@ -1,5 +1,6 @@
 #include "mSFRS.h"
 #include "mCLKPWR.h"
+#include "mUART.h"
 
 
 #define hal_delay_us(us)    do{int _us=us;int delay; while(_us--){ delay = 100; while(delay--);}}while(0)
@@ -48,6 +49,9 @@ int system_clock_init(void)
 	rCLKPWR.clkDiv1.bits.cpuClk = 1; /* A804, output from CPU clock divider */
 
 	/* Set UART clock */
+	rUART.baudRate.bits.uart_tbg_sel = 1; /* A630, Divided from TBGB */
+	rUART.baudRate.bits.uart_tbg_div_sel = 5; /* Divided from 500M to 100M */
+	rUART.baudRate.bits.uart_clk_sel = 1;
 	
 	return 0;
 }
