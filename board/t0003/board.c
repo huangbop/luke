@@ -7,11 +7,10 @@
 
 void board_init(void)
 {
-	int i;
-	
 	system_clock_init();
 
 	uart_init();
 
+	system_interrupt_init();
 	
 }
