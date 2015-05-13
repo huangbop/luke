@@ -1,8 +1,8 @@
 ;;
-;; Start for s3c2440 with rt-thread 
-;; 
+;; Start for s3c2440 with rt-thread
+;;
 
-Mode_USR 	EQU     0x10
+Mode_USR	EQU     0x10
 Mode_FIQ        EQU     0x11
 Mode_IRQ        EQU     0x12
 Mode_SVC        EQU     0x13
@@ -13,31 +13,31 @@ Mode_SYS        EQU     0x1F
 I_Bit           EQU     0x80            ; when I bit is set, IRQ is disabled
 F_Bit           EQU     0x40            ; when F bit is set, FIQ is disabled
 NOINT		EQU	0xc0
-	
+
 	;; Stack space for all modes
-	AREA 	STACK, NOINIT, READWRITE, ALIGN=3
+	AREA	STACK, NOINIT, READWRITE, ALIGN=3
 __und_stack		SPACE	16
-__und_stack_end	
+__und_stack_end
 __svc_stack		SPACE	256
 __svc_stack_end
-__irq_stack		SPACE 	256
+__irq_stack		SPACE	256
 __irq_stack_end
 __fiq_stack		SPACE	256
 __fiq_stack_end
 __usr_stack		SPACE	256
-__usr_stack_end	
+__usr_stack_end
 
 	;; Heap
 	AREA	HEAP, NOINIT, READWRITE, ALIGN=3
-__heap		SPACE 	0
-__heap_end	
+__heap		SPACE	0
+__heap_end
 
 
 	;; RESET entry
-        PRESERVE8
+	PRESERVE8
 	REQUIRE8
-	AREA 	RESET, CODE, READONLY
-        ARM
+	AREA	RESET, CODE, READONLY
+	ARM
 	ENTRY
 	B	reset_handler
 	LDR	pc, _und_handler
@@ -54,8 +54,8 @@ _swi_handler	DCD	swi_handler
 _pabt_handler	DCD	pabt_handler
 _dabt_handler	DCD	dabt_handler
 _irq_handler	DCD	irq_handler
-_fiq_handler	DCD	fiq_handler	
-	
+_fiq_handler	DCD	fiq_handler
+
 
 und_handler
 swi_handler
@@ -76,7 +76,7 @@ fiq_handler
 
 irq_handler
 	STMFD	sp!, {r0-r12, lr}
-	
+
 	BL	rt_interrupt_enter
 	BL	do_irq
 	BL	rt_interrupt_leave
@@ -100,7 +100,7 @@ _interrupt_switch	PROC
 	SUB	r2, lr, #4
 
 	MRS	r3, spsr
-	
+
 	MSR	cpsr_c, #Mode_SVC:OR:NOINT
 
 	STMFD	sp!, {r2}
@@ -129,7 +129,7 @@ _interrupt_switch	PROC
 	LDMFD	sp!, {r0-r12, lr, pc}
 	ENDP
 
-	
+
 reset_handler
 	;; Set stack for every mode
 	MSR	CPSR_c, #Mode_UND:OR:NOINT
@@ -137,19 +137,19 @@ reset_handler
 
 	MSR	CPSR_c, #Mode_ABT:OR:NOINT
 	LDR	SP, =__und_stack_end
-	
+
 	MSR	CPSR_c, #Mode_FIQ:OR:NOINT
 	LDR	SP, =__fiq_stack_end
-	
+
 	MSR	CPSR_c, #Mode_IRQ:OR:NOINT
 	LDR	SP, =__irq_stack_end
-	
+
 	MSR	CPSR_c, #Mode_SVC:OR:NOINT
 	LDR	SP, =__svc_stack_end
 	LDR	SL, =__svc_stack
 
 	;; Goto c main
-	IMPORT 	main
+	IMPORT	main
 	LDR	R0, =main
 	BX	R0
 
@@ -163,4 +163,3 @@ __user_initial_stackheap
 	BX	LR
 
 	END
-	
