@@ -29,10 +29,10 @@ void application_init(void)
 	int res;
 
 	res = rt_thread_init(&print0, "print0", print0_entry, 0,
-			     print0_stack, 512, 8, 9000);
+			     print0_stack, 512, 8, 1);
 
 	res = rt_thread_init(&print1, "print1", print1_entry, 0,
-			     print1_stack, 512, 8, 9000);
+			     print1_stack, 512, 8, 1);
 
 	rt_thread_startup(&print0);
 	rt_thread_startup(&print1);

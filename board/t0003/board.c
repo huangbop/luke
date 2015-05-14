@@ -11,6 +11,6 @@ void board_init(void)
 
 	uart_init();
 
-	system_interrupt_init();
+	system_timer_init();
 	
 }

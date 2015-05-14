@@ -12,9 +12,13 @@ void do_irq(void)
 
 
 	peri_int_sts = rCPU.periIntrStatus.all;
+	/* clear peripheral interrupt */
+	rCPU.periIntrStatus.all |= peri_int_sts;
 
 	if (peri_int_sts & 0x0100) { /* timer0 interrupt */
+
 		rt_tick_increase();
 	}
+
 
 }

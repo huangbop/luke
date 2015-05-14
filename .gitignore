@@ -45,3 +45,5 @@ Release/
 GPATH
 GRTAGS
 GTAGS
+
+*.stg
