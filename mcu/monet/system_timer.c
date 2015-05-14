@@ -2,7 +2,6 @@
 #include "mTimer.h"
 #include "rtconfig.h"
 
-
 void system_timer_init(void)
 {
 	rSFRS.cpuIntrCntl0.all = 0x00f0; /* A000, CPU0 irq for all */

@@ -1,7 +1,6 @@
 #include "mSFRS2.h"
 #include "mUART.h"
 
-
 void uart_putc(const char c)
 {
 	while (!rUART.status.bits.xmitRdy) /* A62C */
