@@ -1,10 +1,31 @@
 #include "mSFRS.h"
 #include "mCLKPWR.h"
 #include "mUART.h"
+#include "types.h"
 
+#define TBGA_CLOCK 800
+#define TBGB_CLOCK 500
 
-#define hal_delay_us(us)    do{int _us=us;int delay; while(_us--){ delay = 100; while(delay--);}}while(0)
+void set_cpu_timing_control_mode(void)
+{
+	/* 1FFE_00FE, wait status */
+	rCPU.CPUTimingCntl = 0xa953;
+}
 
+void set_cpu_clock(u16 which_tbg, u16 div)
+{
+	rCLKPWR.pwrDownCnt.bits.cpuTbgSel = which_tbg; /* A800, CPU divided from _ */
+	rCLKPWR.clkDiv0.cpuClk = div; /* A802, divided by _, 400M */
+	rCLKPWR.clkDiv1.bits.cpuClk = 1; /* A804, output from CPU clock divider */
+
+}
+
+void set_uart_clock(u16 which_tbg, u16 div)
+{
+	rUART.baudRate.bits.uart_tbg_sel = which_tbg; /* A630, Divided from _ */
+	rUART.baudRate.bits.uart_tbg_div_sel = div; /* Divided _ */
+	rUART.baudRate.bits.uart_clk_sel = 1;
+}
 
 /*
  * Unit M, range (75M, 1200M), must mod 25,
@@ -13,6 +34,8 @@
  */
 int set_tgb_clock(unsigned tbga, unsigned tbgb)
 {
+	int i, j;
+
 	if (tbga % 25 || tbgb % 25)
 		return -1;
 
@@ -25,7 +48,9 @@ int set_tgb_clock(unsigned tbga, unsigned tbgb)
 	rCLKPWR.TBGAcontrol1.kvco = tbga < 800 ? 3 : 7;
 	rCLKPWR.TBGAcontrol1.vcoDivSel = 0; /* A812, div = 1 */
 
-	hal_delay_us(200);
+	for (i = 0; i < 2000; i++)
+		for (j = 0; j < 10; j++)
+			;
 
 	rCLKPWR.TBGBcontrol.TBGnF = (3 * tbgb / 25) - 2; /* N */
 	rCLKPWR.TBGBcontrol.TBGnS = 1; /* A80E, M */
@@ -35,7 +60,9 @@ int set_tgb_clock(unsigned tbga, unsigned tbgb)
 	rCLKPWR.TBGBcontrol1.kvco = tbgb < 800 ? 3 : 7;
 	rCLKPWR.TBGBcontrol1.vcoDivSel = 0; /* A814, div = 1 */
 
-	hal_delay_us(200);
+	for (i = 0; i < 2000; i++)
+		for (j = 0; j < 10; j++)
+			;
 
 	/* TBGA & TBGB must both locked */
 	if (!rCLKPWR.TBGAcontrol1.lock || !rCLKPWR.TBGBcontrol1.lock)
@@ -46,25 +73,15 @@ int set_tgb_clock(unsigned tbga, unsigned tbgb)
 
 int system_clock_init(void)
 {
-	/* 1FFE_00FE */
-	rCPU.CPUTimingCntl = (2 << 14) | (2 << 12) | (2 << 10) |
-		(1 << 8) | (1 << 6) | (1 << 4) | 3;
+	set_cpu_timing_control_mode();
 
-	rCLKPWR.clkDiv1.bits.oscClk = 0; /* A804, Osc divided by 1 */
-	rCLKPWR.clkDiv1.bits.hdcClk = 0;
-	rCLKPWR.clkDiv1.bits.cpuClk = 0; /* BM & CPU output from osc clock divider */
+	set_tgb_clock(TBGA_CLOCK, TBGB_CLOCK);
 
-	set_tgb_clock(800, 500);
+	/* From TBGA, 800M -> 400M */
+	set_cpu_clock(0, 2);
 
-	/* Set CPU clock */
-	rCLKPWR.pwrDownCnt.bits.cpuTbgSel = 0 ; /* A800, CPU divided from TBGA */
-	rCLKPWR.clkDiv0.cpuClk = 2; /* A802, divided by 2, 400M */
-	rCLKPWR.clkDiv1.bits.cpuClk = 1; /* A804, output from CPU clock divider */
-
-	/* Set UART clock */
-	rUART.baudRate.bits.uart_tbg_sel = 1; /* A630, Divided from TBGB */
-	rUART.baudRate.bits.uart_tbg_div_sel = 5; /* Divided from 500M to 100M */
-	rUART.baudRate.bits.uart_clk_sel = 1;
+	/* From TBGB, 500M -> 100M */
+	set_uart_clock(1, 5);
 
 	return 0;
 }
