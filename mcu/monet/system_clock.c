@@ -12,11 +12,20 @@ void set_cpu_timing_control_mode(void)
 	rCPU.CPUTimingCntl = 0xa953;
 }
 
+
 void set_cpu_clock(u16 which_tbg, u16 div)
 {
 	rCLKPWR.pwrDownCnt.bits.cpuTbgSel = which_tbg; /* A800, CPU divided from _ */
 	rCLKPWR.clkDiv0.cpuClk = div; /* A802, divided by _, 400M */
 	rCLKPWR.clkDiv1.bits.cpuClk = 1; /* A804, output from CPU clock divider */
+
+}
+
+void set_bm_clock(u16 which_tbg, u16 div)
+{
+	rCLKPWR.pwrDownCnt.bits.bmTbgSel = which_tbg; /* A800, BM divided from _ */
+	rCLKPWR.clkDiv0.hdcClk = div; /* A802, divided by _, 400M */
+	rCLKPWR.clkDiv1.bits.hdcClk = 1; /* A804, output from BM clock divider */
 
 }
 
@@ -79,6 +88,8 @@ int system_clock_init(void)
 
 	/* From TBGA, 800M -> 400M */
 	set_cpu_clock(0, 2);
+
+	set_bm_clock(0, 2);	/* 400M */
 
 	/* From TBGB, 500M -> 100M */
 	set_uart_clock(1, 5);
