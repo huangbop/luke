@@ -98,5 +98,7 @@ void board_init(void)
 	system_timer_init();
 
 	ddr_init();
+
+	segment_init();
 	
 }
