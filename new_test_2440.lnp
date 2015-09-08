@@ -1,0 +1,7 @@
+--cpu ARM920T
+".\s3c2440.o"
+".\main.o"
+--strict --scatter ".\ram.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\new_test_2440.map" -o .\new_test_2440.axf
