@@ -2,7 +2,8 @@
  * Copyright (C) 2014 Huang Bo
  */
 
-#include <rtthread.h>
+#include "stdint.h"
+
 
 #define _MMUTT_STARTADDRESS	 0x31000000
 
@@ -29,7 +30,7 @@
 #define RW_FAULT	(AP_RW|DOMAIN1|NCNB|DESC_SEC)
 
 #ifdef __CC_ARM
-void mmu_setttbase(rt_uint32_t i)
+void mmu_setttbase(uint32_t i)
 {
     __asm
     {
@@ -37,7 +38,7 @@ void mmu_setttbase(rt_uint32_t i)
     }
 }
 
-void mmu_set_domain(rt_uint32_t i)
+void mmu_set_domain(uint32_t i)
 {
     __asm
     {
@@ -47,7 +48,7 @@ void mmu_set_domain(rt_uint32_t i)
 
 void mmu_enable()
 {
-    /* register */ rt_uint32_t value;
+    /* register */ uint32_t value;
 	int a = 0;
 	int b = 0;
 	int c = 0;
@@ -98,7 +99,7 @@ void mmu_enable()
 
 void mmu_disable()
 {
-    register rt_uint32_t value;
+    register uint32_t value;
 
     __asm
     {
@@ -110,7 +111,7 @@ void mmu_disable()
 
 void mmu_enable_icache()
 {
-    register rt_uint32_t value;
+    register uint32_t value;
 
     __asm
     {
@@ -122,7 +123,7 @@ void mmu_enable_icache()
 
 void mmu_enable_dcache()
 {
-    register rt_uint32_t value;
+    register uint32_t value;
 
     __asm
     {
@@ -134,7 +135,7 @@ void mmu_enable_dcache()
 
 void mmu_disable_icache()
 {
-    register rt_uint32_t value;
+    register uint32_t value;
 
     __asm
     {
@@ -146,7 +147,7 @@ void mmu_disable_icache()
 
 void mmu_disable_dcache()
 {
-    register rt_uint32_t value;
+    register uint32_t value;
 
     __asm
     {
@@ -158,7 +159,7 @@ void mmu_disable_dcache()
 
 void mmu_enable_alignfault()
 {
-    register rt_uint32_t value;
+    register uint32_t value;
 
     __asm
     {
@@ -170,7 +171,7 @@ void mmu_enable_alignfault()
 
 void mmu_disable_alignfault()
 {
-    register rt_uint32_t value;
+    register uint32_t value;
 
     __asm
     {
@@ -190,7 +191,7 @@ void mmu_clean_invalidated_cache_index(int index)
 
 void mmu_invalidate_tlb()
 {
-    register rt_uint32_t value;
+    register uint32_t value;
 
     value = 0;
     __asm
@@ -201,7 +202,7 @@ void mmu_invalidate_tlb()
 
 void mmu_invalidate_icache()
 {
-    register rt_uint32_t value;
+    register uint32_t value;
 
     value = 0;
 
@@ -214,9 +215,9 @@ void mmu_invalidate_icache()
 
 void mmu_setmtt(int vaddrStart,int vaddrEnd,int paddrStart,int attr)
 {
-    volatile rt_uint32_t *pTT;
+    volatile uint32_t *pTT;
     volatile int i,nSec;
-    pTT=(rt_uint32_t *)_MMUTT_STARTADDRESS+(vaddrStart>>20);
+    pTT=(uint32_t *)_MMUTT_STARTADDRESS+(vaddrStart>>20);
     nSec=(vaddrEnd>>20)-(vaddrStart>>20);
     for(i=0;i<=nSec;i++)
     {

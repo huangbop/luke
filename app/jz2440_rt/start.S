@@ -94,8 +94,8 @@ reset_handler
 	MSR	CPSR_c, #Mode_IRQ:OR:NOINT
 	LDR	SP, =__irq_stack_end
 	
-	;; MSR	CPSR_c, #Mode_SVC:OR:NOINT
-	MSR	CPSR_c, #Mode_SVC
+	MSR	CPSR_c, #Mode_SVC:OR:NOINT
+	;; MSR	CPSR_c, #Mode_SVC
 	LDR	SP, =__svc_stack_end
 	LDR	SL, =__svc_stack
 
