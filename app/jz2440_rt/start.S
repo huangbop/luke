@@ -48,14 +48,15 @@ __heap_end
 	LDR	pc, _irq_handler
 	LDR	pc, _fiq_handler
 
+	  IMPORT 	OS_CPU_ARM_ExceptIrqHndlr
 
 _und_handler	DCD	und_handler
 _swi_handler	DCD	swi_handler
 _pabt_handler	DCD	pabt_handler
 _dabt_handler	DCD	dabt_handler
-_irq_handler	DCD	irq_handler
-_fiq_handler	DCD	fiq_handler	
-	
+_irq_handler	DCD OS_CPU_ARM_ExceptIrqHndlr
+_fiq_handler	DCD	fiq_handler
+
 
 und_handler
 swi_handler
@@ -65,19 +66,6 @@ dabt_handler	B	und_handler
 
 fiq_handler
 	B	fiq_handler
-
-
-	IMPORT	do_irq
-
-irq_handler
-	STMFD	sp!, {r0-r12, lr}
-
-	BL	do_irq
-
-
-	LDMFD	sp!, {r0-r12, lr}
-	SUBS	pc, lr, #4
-
 
 
 reset_handler

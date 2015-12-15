@@ -4,22 +4,24 @@
 *                                          The Real-Time Kernel
 *                                       MESSAGE MAILBOX MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2012, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_MBOX.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92.07
 *
 * LICENSING TERMS:
 * ---------------
 *   uC/OS-II is provided in source form for FREE evaluation, for educational use or for peaceful research.
-* If you plan on using  uC/OS-II  in a commercial product you need to contact Micriµm to properly license
+* If you plan on using  uC/OS-II  in a commercial product you need to contact Micrium to properly license
 * its use in your product. We provide ALL the source code for your convenience and to help you experience
 * uC/OS-II.   The fact that the  source is provided does  NOT  mean that you can use it without  paying a
 * licensing fee.
 *********************************************************************************************************
 */
+
+#define  MICRIUM_SOURCE
 
 #ifndef  OS_MASTER_FILE
 #include <ucos_ii.h>
@@ -28,7 +30,7 @@
 #if OS_MBOX_EN > 0u
 /*
 *********************************************************************************************************
-*                                     ACCEPT MESSAGE FROM MAILBOX
+*                                        ACCEPT MESSAGE FROM MAILBOX
 *
 * Description: This function checks the mailbox to see if a message is available.  Unlike OSMboxPend(),
 *              OSMboxAccept() does not suspend the calling task if a message is not available.
@@ -71,7 +73,7 @@ void  *OSMboxAccept (OS_EVENT *pevent)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        CREATE A MESSAGE MAILBOX
+*                                          CREATE A MESSAGE MAILBOX
 *
 * Description: This function creates a message mailbox if free event control blocks are available.
 *
@@ -97,6 +99,7 @@ OS_EVENT  *OSMboxCreate (void *pmsg)
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_EVENT *)0);
     }
 #endif
 
@@ -123,7 +126,7 @@ OS_EVENT  *OSMboxCreate (void *pmsg)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                         DELETE A MAIBOX
+*                                           DELETE A MAIBOX
 *
 * Description: This function deletes a mailbox and readies all tasks pending on the mailbox.
 *
@@ -154,6 +157,8 @@ OS_EVENT  *OSMboxCreate (void *pmsg)
 *              4) Because ALL tasks pending on the mailbox will be readied, you MUST be careful in
 *                 applications where the mailbox is used for mutual exclusion because the resource(s)
 *                 will no longer be guarded by the mailbox.
+*              5) All tasks that were waiting for the mailbox will be readied and returned an 
+*                 OS_ERR_PEND_ABORT if OSMboxDel() was called with OS_DEL_ALWAYS
 *********************************************************************************************************
 */
 
@@ -173,6 +178,7 @@ OS_EVENT  *OSMboxDel (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_EVENT *)0);
     }
 #endif
 
@@ -218,7 +224,7 @@ OS_EVENT  *OSMboxDel (OS_EVENT  *pevent,
 
         case OS_DEL_ALWAYS:                                /* Always delete the mailbox                */
              while (pevent->OSEventGrp != 0u) {            /* Ready ALL tasks waiting for mailbox      */
-                 (void)OS_EventTaskRdy(pevent, (void *)0, OS_STAT_MBOX, OS_STAT_PEND_OK);
+                 (void)OS_EventTaskRdy(pevent, (void *)0, OS_STAT_MBOX, OS_STAT_PEND_ABORT);
              }
 #if OS_EVENT_NAME_EN > 0u
              pevent->OSEventName    = (INT8U *)(void *)"?";
@@ -248,7 +254,7 @@ OS_EVENT  *OSMboxDel (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                      PEND ON MAILBOX FOR A MESSAGE
+*                                    PEND ON MAILBOX FOR A MESSAGE
 *
 * Description: This function waits for a message to be sent to a mailbox
 *
@@ -293,6 +299,7 @@ void  *OSMboxPend (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((void *)0);
     }
 #endif
 
@@ -360,7 +367,7 @@ void  *OSMboxPend (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                      ABORT WAITING ON A MESSAGE MAILBOX
+*                                     ABORT WAITING ON A MESSAGE MAILBOX
 *
 * Description: This function aborts & readies any tasks currently waiting on a mailbox.  This function
 *              should be used to fault-abort the wait on the mailbox, rather than to normally signal
@@ -405,6 +412,7 @@ INT8U  OSMboxPendAbort (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -449,7 +457,7 @@ INT8U  OSMboxPendAbort (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                       POST MESSAGE TO A MAILBOX
+*                                      POST MESSAGE TO A MAILBOX
 *
 * Description: This function sends a message to a mailbox
 *
@@ -511,7 +519,7 @@ INT8U  OSMboxPost (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                       POST MESSAGE TO A MAILBOX
+*                                      POST MESSAGE TO A MAILBOX
 *
 * Description: This function sends a message to a mailbox
 *
@@ -591,7 +599,7 @@ INT8U  OSMboxPostOpt (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        QUERY A MESSAGE MAILBOX
+*                                       QUERY A MESSAGE MAILBOX
 *
 * Description: This function obtains information about a message mailbox.
 *
@@ -644,4 +652,3 @@ INT8U  OSMboxQuery (OS_EVENT      *pevent,
 }
 #endif                                                     /* OS_MBOX_QUERY_EN                         */
 #endif                                                     /* OS_MBOX_EN                               */
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

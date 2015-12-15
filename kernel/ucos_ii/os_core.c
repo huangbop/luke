@@ -4,22 +4,24 @@
 *                                          The Real-Time Kernel
 *                                             CORE FUNCTIONS
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2012, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_CORE.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92.07
 *
 * LICENSING TERMS:
 * ---------------
 *   uC/OS-II is provided in source form for FREE evaluation, for educational use or for peaceful research.
-* If you plan on using  uC/OS-II  in a commercial product you need to contact Micriµm to properly license
+* If you plan on using  uC/OS-II  in a commercial product you need to contact Micrium to properly license
 * its use in your product. We provide ALL the source code for your convenience and to help you experience
 * uC/OS-II.   The fact that the  source is provided does  NOT  mean that you can use it without  paying a
 * licensing fee.
 *********************************************************************************************************
 */
+
+#define  MICRIUM_SOURCE
 
 #ifndef  OS_MASTER_FILE
 #define  OS_GLOBALS
@@ -28,7 +30,7 @@
 
 /*
 *********************************************************************************************************
-*                                       PRIORITY RESOLUTION TABLE
+*                                      PRIORITY RESOLUTION TABLE
 *
 * Note: Index into table is bit pattern to resolve highest priority
 *       Indexed value corresponds to highest priority bit position (i.e. 0..7)
@@ -57,7 +59,7 @@ INT8U  const  OSUnMapTbl[256] = {
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                       FUNCTION PROTOTYPES
+*                                         FUNCTION PROTOTYPES
 *********************************************************************************************************
 */
 
@@ -80,7 +82,7 @@ static  void  OS_SchedNew(void);
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                         GET THE NAME OF A SEMAPHORE, MUTEX, MAILBOX or QUEUE
+*                        GET THE NAME OF A SEMAPHORE, MUTEX, MAILBOX or QUEUE
 *
 * Description: This function is used to obtain the name assigned to a semaphore, mutex, mailbox or queue.
 *
@@ -119,6 +121,7 @@ INT8U  OSEventNameGet (OS_EVENT   *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -159,7 +162,7 @@ INT8U  OSEventNameGet (OS_EVENT   *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                         ASSIGN A NAME TO A SEMAPHORE, MUTEX, MAILBOX or QUEUE
+*                        ASSIGN A NAME TO A SEMAPHORE, MUTEX, MAILBOX or QUEUE
 *
 * Description: This function assigns a name to a semaphore, mutex, mailbox or queue.
 *
@@ -197,6 +200,7 @@ void  OSEventNameSet (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -235,7 +239,7 @@ void  OSEventNameSet (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                      PEND ON MULTIPLE EVENTS
+*                                       PEND ON MULTIPLE EVENTS
 *
 * Description: This function waits for multiple events.  If multiple events are ready at the start of the
 *              pend call, then all available events are returned as ready.  If the task must pend on the
@@ -328,6 +332,7 @@ INT16U  OSEventPendMulti (OS_EVENT  **pevents_pend,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -389,12 +394,12 @@ INT16U  OSEventPendMulti (OS_EVENT  **pevents_pend,
     }
 
 /*$PAGE*/
-    OS_ENTER_CRITICAL();
     events_rdy     =  OS_FALSE;
     events_rdy_nbr =  0u;
     events_stat    =  OS_STAT_RDY;
     pevents        =  pevents_pend;
     pevent         = *pevents;
+    OS_ENTER_CRITICAL();
     while (pevent != (OS_EVENT *)0) {                   /* See if any events already available         */
         switch (pevent->OSEventType) {
 #if (OS_SEM_EN > 0u)
@@ -483,15 +488,15 @@ INT16U  OSEventPendMulti (OS_EVENT  **pevents_pend,
         case OS_STAT_PEND_ABORT:
              pevent = OSTCBCur->OSTCBEventPtr;
              if (pevent != (OS_EVENT *)0) {             /* If task event ptr != NULL, ...              */
-                *pevents_rdy++ =  pevent;               /* ... return available event ...              */
-                *pevents_rdy   = (OS_EVENT *)0;         /* ... & NULL terminate return event array     */
-                  events_rdy_nbr++;
+                *pevents_rdy++   =  pevent;             /* ... return available event ...              */
+                *pevents_rdy     = (OS_EVENT *)0;       /* ... & NULL terminate return event array     */
+                  events_rdy_nbr =  1;
 
              } else {                                   /* Else NO event available, handle as timeout  */
                  OSTCBCur->OSTCBStatPend = OS_STAT_PEND_TO;
                  OS_EventTaskRemoveMulti(OSTCBCur, pevents_pend);
              }
-			 break;
+             break;
 
         case OS_STAT_PEND_TO:                           /* If events timed out, ...                    */
         default:                                        /* ... remove task from events' wait lists     */
@@ -556,7 +561,7 @@ INT16U  OSEventPendMulti (OS_EVENT  **pevents_pend,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                             INITIALIZATION
+*                                           INITIALIZATION
 *
 * Description: This function is used to initialize the internals of uC/OS-II and MUST be called prior to
 *              creating any uC/OS-II object and, prior to calling OSStart().
@@ -619,7 +624,7 @@ void  OSInit (void)
 *
 * Returns    : none
 *
-* Notes      : 1) This function should be called ith interrupts already disabled
+* Notes      : 1) This function should be called with interrupts already disabled
 *              2) Your ISR can directly increment OSIntNesting without calling this function because
 *                 OSIntNesting has been declared 'global'.
 *              3) You MUST still call OSIntExit() even though you increment OSIntNesting directly.
@@ -643,9 +648,9 @@ void  OSIntEnter (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                               EXIT ISR
+*                                              EXIT ISR
 *
-* Description: This function is used to notify uC/OS-II that you have completed serviving an ISR.  When
+* Description: This function is used to notify uC/OS-II that you have completed servicing an ISR.  When
 *              the last nested ISR has completed, uC/OS-II will call the scheduler to determine whether
 *              a new, high-priority task, is ready to run.
 *
@@ -692,7 +697,7 @@ void  OSIntExit (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                            INDICATE THAT IT'S NO LONGER SAFE TO CREATE OBJECTS
+*                         INDICATE THAT IT'S NO LONGER SAFE TO CREATE OBJECTS
 *
 * Description: This function is called by the application code to indicate that all initialization has
 *              been completed and that kernel objects are no longer allowed to be created.
@@ -718,7 +723,7 @@ void  OSSafetyCriticalStart (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                          PREVENT SCHEDULING
+*                                         PREVENT SCHEDULING
 *
 * Description: This function is used to prevent rescheduling to take place.  This allows your application
 *              to prevent context switches until you are ready to permit context switching.
@@ -780,10 +785,10 @@ void  OSSchedUnlock (void)
 
     if (OSRunning == OS_TRUE) {                            /* Make sure multitasking is running        */
         OS_ENTER_CRITICAL();
-        if (OSLockNesting > 0u) {                          /* Do not decrement if already 0            */
-            OSLockNesting--;                               /* Decrement lock nesting level             */
-            if (OSLockNesting == 0u) {                     /* See if scheduler is enabled and ...      */
-                if (OSIntNesting == 0u) {                  /* ... not in an ISR                        */
+        if (OSIntNesting == 0u) {                          /* Can't call from an ISR                   */
+            if (OSLockNesting > 0u) {                      /* Do not decrement if already 0            */
+                OSLockNesting--;                           /* Decrement lock nesting level             */
+                if (OSLockNesting == 0u) {                 /* See if scheduler is enabled              */
                     OS_EXIT_CRITICAL();
                     OS_Sched();                            /* See if a HPT is ready                    */
                 } else {
@@ -802,7 +807,7 @@ void  OSSchedUnlock (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                          START MULTITASKING
+*                                         START MULTITASKING
 *
 * Description: This function is used to start the multitasking process which lets uC/OS-II manages the
 *              task that you have created.  Before you can call OSStart(), you MUST have called OSInit()
@@ -833,7 +838,7 @@ void  OSStart (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        STATISTICS INITIALIZATION
+*                                      STATISTICS INITIALIZATION
 *
 * Description: This function is called by your application to establish CPU usage by first determining
 *              how high a 32-bit counter would count to in 1 second if no other tasks were to execute
@@ -962,13 +967,13 @@ void  OSTimeTick (void)
 *********************************************************************************************************
 *                                             GET VERSION
 *
-* Description: This function is used to return the version number of uC/OS-II.  The returned value
-*              corresponds to uC/OS-II's version number multiplied by 100.  In other words, version 2.00
-*              would be returned as 200.
+* Description: This function is used to return the version number of uC/OS-II.  The returned value 
+*              corresponds to uC/OS-II's version number multiplied by 10000.  In other words, version 
+*              2.01.00 would be returned as 20100.
 *
 * Arguments  : none
 *
-* Returns    : the version number of uC/OS-II multiplied by 100.
+* Returns    : The version number of uC/OS-II multiplied by 10000.
 *********************************************************************************************************
 */
 
@@ -980,7 +985,7 @@ INT16U  OSVersion (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                            DUMMY FUNCTION
+*                                           DUMMY FUNCTION
 *
 * Description: This function doesn't do anything.  It is called by OSTaskDel().
 *
@@ -999,7 +1004,7 @@ void  OS_Dummy (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                             MAKE TASK READY TO RUN BASED ON EVENT OCCURING
+*                           MAKE TASK READY TO RUN BASED ON EVENT OCCURING
 *
 * Description: This function is called by other uC/OS-II services and is used to ready a task that was
 *              waiting for an event to occur.
@@ -1087,7 +1092,7 @@ INT8U  OS_EventTaskRdy (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                   MAKE TASK WAIT FOR EVENT TO OCCUR
+*                                  MAKE TASK WAIT FOR EVENT TO OCCUR
 *
 * Description: This function is called by other uC/OS-II services to suspend a task because an event has
 *              not occurred.
@@ -1120,7 +1125,7 @@ void  OS_EventTaskWait (OS_EVENT *pevent)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                          MAKE TASK WAIT FOR ANY OF MULTIPLE EVENTS TO OCCUR
+*                         MAKE TASK WAIT FOR ANY OF MULTIPLE EVENTS TO OCCUR
 *
 * Description: This function is called by other uC/OS-II services to suspend a task because any one of
 *              multiple events has not occurred.
@@ -1163,7 +1168,7 @@ void  OS_EventTaskWaitMulti (OS_EVENT **pevents_wait)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                   REMOVE TASK FROM EVENT WAIT LIST
+*                                  REMOVE TASK FROM EVENT WAIT LIST
 *
 * Description: Remove a task from an event's wait list.
 *
@@ -1235,7 +1240,7 @@ void  OS_EventTaskRemoveMulti (OS_TCB    *ptcb,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                 INITIALIZE EVENT CONTROL BLOCK'S WAIT LIST
+*                             INITIALIZE EVENT CONTROL BLOCK'S WAIT LIST
 *
 * Description: This function is called by other uC/OS-II services to initialize the event wait list.
 *
@@ -1348,6 +1353,10 @@ static  void  OS_InitMisc (void)
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     OSSafetyCriticalStartFlag = OS_FALSE;                  /* Still allow creation of objects          */
+#endif
+
+#if OS_TASK_REG_TBL_SIZE > 0u
+    OSTaskRegNextAvailID      = 0u;                        /* Initialize the task register ID          */
 #endif
 }
 /*$PAGE*/
@@ -1549,7 +1558,7 @@ static  void  OS_InitTCBList (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        CLEAR A SECTION OF MEMORY
+*                                      CLEAR A SECTION OF MEMORY
 *
 * Description: This function is called by other uC/OS-II services to clear a contiguous block of RAM.
 *
@@ -1578,7 +1587,7 @@ void  OS_MemClr (INT8U  *pdest,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        COPY A BLOCK OF MEMORY
+*                                       COPY A BLOCK OF MEMORY
 *
 * Description: This function is called by other uC/OS-II services to copy a block of memory from one
 *              location to another.
@@ -1655,7 +1664,7 @@ void  OS_Sched (void)
 
 /*
 *********************************************************************************************************
-*                              FIND HIGHEST PRIORITY TASK READY TO RUN
+*                               FIND HIGHEST PRIORITY TASK READY TO RUN
 *
 * Description: This function is called by other uC/OS-II services to determine the highest priority task
 *              that is ready to run.  The global variable 'OSPrioHighRdy' is changed accordingly.
@@ -1699,7 +1708,7 @@ static  void  OS_SchedNew (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                DETERMINE THE LENGTH OF AN ASCII STRING
+*                               DETERMINE THE LENGTH OF AN ASCII STRING
 *
 * Description: This function is called by other uC/OS-II services to determine the size of an ASCII string
 *              (excluding the NUL character).
@@ -1718,6 +1727,12 @@ INT8U  OS_StrLen (INT8U *psrc)
 {
     INT8U  len;
 
+
+#if OS_ARG_CHK_EN > 0u
+    if (psrc == (INT8U *)0) {
+        return (0u);
+    }
+#endif
 
     len = 0u;
     while (*psrc != OS_ASCII_NUL) {
@@ -1768,7 +1783,7 @@ void  OS_TaskIdle (void *p_arg)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                            STATISTICS TASK
+*                                           STATISTICS TASK
 *
 * Description: This task is internal to uC/OS-II and is used to compute some statistics about the
 *              multitasking environment.  Specifically, OS_TaskStat() computes the CPU usage.
@@ -1814,6 +1829,9 @@ void  OS_TaskStat (void *p_arg)
         }
 #endif
     }
+    OS_ENTER_CRITICAL();
+    OSIdleCtr = OSIdleCtrMax * 100uL;            /* Set initial CPU usage as 0%                        */
+    OS_EXIT_CRITICAL();
     for (;;) {
         OS_ENTER_CRITICAL();
         OSIdleCtrRun = OSIdleCtr;                /* Obtain the of the idle counter for the past second */
@@ -1831,7 +1849,7 @@ void  OS_TaskStat (void *p_arg)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                      CHECK ALL TASK STACKS
+*                                        CHECK ALL TASK STACKS
 *
 * Description: This function is called by OS_TaskStat() to check the stacks of each active task.
 *
@@ -1862,7 +1880,7 @@ void  OS_TaskStatStkChk (void)
                     #else
                     ptcb->OSTCBStkBase = ptcb->OSTCBStkBottom - ptcb->OSTCBStkSize;
                     #endif
-                    ptcb->OSTCBStkUsed = stk_data.OSUsed;            /* Store the number of bytes used */
+                    ptcb->OSTCBStkUsed = stk_data.OSUsed;            /* Store number of entries used   */
 #endif
                 }
             }
@@ -1873,7 +1891,7 @@ void  OS_TaskStatStkChk (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                            INITIALIZE TCB
+*                                           INITIALIZE TCB
 *
 * Description: This function is internal to uC/OS-II and is used to initialize a Task Control Block when
 *              a task is created (see OSTaskCreate() and OSTaskCreateExt()).
@@ -2006,10 +2024,13 @@ INT8U  OS_TCBInit (INT8U    prio,
 
         OSTCBInitHook(ptcb);
 
+        OS_ENTER_CRITICAL();
+        OSTCBPrioTbl[prio] = ptcb;
+        OS_EXIT_CRITICAL();
+
         OSTaskCreateHook(ptcb);                            /* Call user defined hook                   */
 
         OS_ENTER_CRITICAL();
-        OSTCBPrioTbl[prio] = ptcb;
         ptcb->OSTCBNext    = OSTCBList;                    /* Link into TCB chain                      */
         ptcb->OSTCBPrev    = (OS_TCB *)0;
         if (OSTCBList != (OS_TCB *)0) {
@@ -2025,4 +2046,3 @@ INT8U  OS_TCBInit (INT8U    prio,
     OS_EXIT_CRITICAL();
     return (OS_ERR_TASK_NO_MORE_TCB);
 }
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

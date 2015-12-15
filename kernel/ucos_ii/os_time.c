@@ -4,22 +4,24 @@
 *                                          The Real-Time Kernel
 *                                             TIME MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2012, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_TIME.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92.07
 *
 * LICENSING TERMS:
 * ---------------
 *   uC/OS-II is provided in source form for FREE evaluation, for educational use or for peaceful research.
-* If you plan on using  uC/OS-II  in a commercial product you need to contact Micriµm to properly license
+* If you plan on using  uC/OS-II  in a commercial product you need to contact Micrium to properly license
 * its use in your product. We provide ALL the source code for your convenience and to help you experience
 * uC/OS-II.   The fact that the  source is provided does  NOT  mean that you can use it without  paying a
 * licensing fee.
 *********************************************************************************************************
 */
+
+#define  MICRIUM_SOURCE
 
 #ifndef  OS_MASTER_FILE
 #include <ucos_ii.h>
@@ -27,7 +29,7 @@
 
 /*
 *********************************************************************************************************
-*                                       DELAY TASK 'n' TICKS
+*                                        DELAY TASK 'n' TICKS
 *
 * Description: This function is called to delay execution of the currently running task until the
 *              specified number of system ticks expires.  This, of course, directly equates to delaying
@@ -71,7 +73,7 @@ void  OSTimeDly (INT32U ticks)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                     DELAY TASK FOR SPECIFIED TIME
+*                                    DELAY TASK FOR SPECIFIED TIME
 *
 * Description: This function is called to delay execution of the currently running task until some time
 *              expires.  This call allows you to specify the delay time in HOURS, MINUTES, SECONDS and
@@ -141,7 +143,7 @@ INT8U  OSTimeDlyHMSM (INT8U   hours,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                         RESUME A DELAYED TASK
+*                                        RESUME A DELAYED TASK
 *
 * Description: This function is used resume a task that has been delayed through a call to either
 *              OSTimeDly() or OSTimeDlyHMSM().  Note that you can call this function to resume a
@@ -207,7 +209,7 @@ INT8U  OSTimeDlyResume (INT8U prio)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                         GET CURRENT SYSTEM TIME
+*                                       GET CURRENT SYSTEM TIME
 *
 * Description: This function is used by your application to obtain the current value of the 32-bit
 *              counter which keeps track of the number of clock ticks.
@@ -237,7 +239,7 @@ INT32U  OSTimeGet (void)
 
 /*
 *********************************************************************************************************
-*                                            SET SYSTEM CLOCK
+*                                          SET SYSTEM CLOCK
 *
 * Description: This function sets the 32-bit counter which keeps track of the number of clock ticks.
 *
@@ -261,4 +263,3 @@ void  OSTimeSet (INT32U ticks)
     OS_EXIT_CRITICAL();
 }
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

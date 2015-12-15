@@ -4,22 +4,24 @@
 *                                          The Real-Time Kernel
 *                                            MEMORY MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2012, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_MEM.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92.07
 *
 * LICENSING TERMS:
 * ---------------
 *   uC/OS-II is provided in source form for FREE evaluation, for educational use or for peaceful research.
-* If you plan on using  uC/OS-II  in a commercial product you need to contact Micriµm to properly license
+* If you plan on using  uC/OS-II  in a commercial product you need to contact Micrium to properly license
 * its use in your product. We provide ALL the source code for your convenience and to help you experience
 * uC/OS-II.   The fact that the  source is provided does  NOT  mean that you can use it without  paying a
 * licensing fee.
 *********************************************************************************************************
 */
+
+#define  MICRIUM_SOURCE
 
 #ifndef  OS_MASTER_FILE
 #include <ucos_ii.h>
@@ -28,7 +30,7 @@
 #if (OS_MEM_EN > 0u) && (OS_MAX_MEM_PART > 0u)
 /*
 *********************************************************************************************************
-*                                        CREATE A MEMORY PARTITION
+*                                      CREATE A MEMORY PARTITION
 *
 * Description : Create a fixed-sized memory partition that will be managed by uC/OS-II.
 *
@@ -75,12 +77,14 @@ OS_MEM  *OSMemCreate (void   *addr,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_MEM *)0);
     }
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_MEM *)0);
     }
 #endif
 
@@ -132,7 +136,7 @@ OS_MEM  *OSMemCreate (void   *addr,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                          GET A MEMORY BLOCK
+*                                         GET A MEMORY BLOCK
 *
 * Description : Get a memory block from a partition
 *
@@ -163,6 +167,7 @@ void  *OSMemGet (OS_MEM  *pmem,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((void *)0);
     }
 #endif
 
@@ -188,7 +193,7 @@ void  *OSMemGet (OS_MEM  *pmem,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                   GET THE NAME OF A MEMORY PARTITION
+*                                 GET THE NAME OF A MEMORY PARTITION
 *
 * Description: This function is used to obtain the name assigned to a memory partition.
 *
@@ -222,6 +227,7 @@ INT8U  OSMemNameGet (OS_MEM   *pmem,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -285,6 +291,7 @@ void  OSMemNameSet (OS_MEM  *pmem,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -312,7 +319,7 @@ void  OSMemNameSet (OS_MEM  *pmem,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                         RELEASE A MEMORY BLOCK
+*                                       RELEASE A MEMORY BLOCK
 *
 * Description : Returns a memory block to a partition
 *
@@ -359,7 +366,7 @@ INT8U  OSMemPut (OS_MEM  *pmem,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                          QUERY MEMORY PARTITION
+*                                       QUERY MEMORY PARTITION
 *
 * Description : This function is used to determine the number of free memory blocks and the number of
 *               used memory blocks from a memory partition.
@@ -407,7 +414,7 @@ INT8U  OSMemQuery (OS_MEM       *pmem,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                    INITIALIZE MEMORY PARTITION MANAGER
+*                                 INITIALIZE MEMORY PARTITION MANAGER
 *
 * Description : This function is called by uC/OS-II to initialize the memory partition manager.  Your
 *               application MUST NOT call this function.
@@ -453,4 +460,3 @@ void  OS_MemInit (void)
 #endif
 }
 #endif                                                    /* OS_MEM_EN                                 */
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

@@ -4,22 +4,24 @@
 *                                          The Real-Time Kernel
 *                                            TASK MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2012, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_TASK.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92.07
 *
 * LICENSING TERMS:
 * ---------------
 *   uC/OS-II is provided in source form for FREE evaluation, for educational use or for peaceful research.
-* If you plan on using  uC/OS-II  in a commercial product you need to contact Micriµm to properly license
+* If you plan on using  uC/OS-II  in a commercial product you need to contact Micrium to properly license
 * its use in your product. We provide ALL the source code for your convenience and to help you experience
 * uC/OS-II.   The fact that the  source is provided does  NOT  mean that you can use it without  paying a
 * licensing fee.
 *********************************************************************************************************
 */
+
+#define  MICRIUM_SOURCE
 
 #ifndef  OS_MASTER_FILE
 #include <ucos_ii.h>
@@ -28,7 +30,7 @@
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        CHANGE PRIORITY OF A TASK
+*                                      CHANGE PRIORITY OF A TASK
 *
 * Description: This function allows you to change the priority of a task dynamically.  Note that the new
 *              priority MUST be available.
@@ -194,12 +196,14 @@ INT8U  OSTaskChangePrio (INT8U  oldprio,
 *              prio     is the task's priority.  A unique priority MUST be assigned to each task and the
 *                       lower the number, the higher the priority.
 *
-* Returns    : OS_ERR_NONE             if the function was successful.
-*              OS_PRIO_EXIT            if the task priority already exist
-*                                      (each task MUST have a unique priority).
-*              OS_ERR_PRIO_INVALID     if the priority you specify is higher that the maximum allowed
-*                                      (i.e. >= OS_LOWEST_PRIO)
-*              OS_ERR_TASK_CREATE_ISR  if you tried to create a task from an ISR.
+* Returns    : OS_ERR_NONE                      if the function was successful.
+*              OS_ERR_PRIO_EXIST                if the task priority already exist
+*                                               (each task MUST have a unique priority).
+*              OS_ERR_PRIO_INVALID              if the priority you specify is higher that the maximum
+*                                               allowed (i.e. >= OS_LOWEST_PRIO)
+*              OS_ERR_TASK_CREATE_ISR           if you tried to create a task from an ISR.
+*              OS_ERR_ILLEGAL_CREATE_RUN_TIME   if you tried to create a task after safety critical
+*                                               operation started.
 *********************************************************************************************************
 */
 
@@ -209,10 +213,10 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
                      OS_STK  *ptos,
                      INT8U    prio)
 {
-    OS_STK    *psp;
-    INT8U      err;
+    OS_STK     *psp;
+    INT8U       err;
 #if OS_CRITICAL_METHOD == 3u                 /* Allocate storage for CPU status register               */
-    OS_CPU_SR  cpu_sr = 0u;
+    OS_CPU_SR   cpu_sr = 0u;
 #endif
 
 
@@ -220,6 +224,7 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (OS_ERR_ILLEGAL_CREATE_RUN_TIME);
     }
 #endif
 
@@ -257,7 +262,7 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                     CREATE A TASK (Extended Version)
+*                                  CREATE A TASK (Extended Version)
 *
 * Description: This function is used to have uC/OS-II manage the execution of a task.  Tasks can either
 *              be created prior to the start of multitasking or by a running task.  A task cannot be
@@ -316,12 +321,14 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
 *                        OS_TASK_OPT_SAVE_FP      If the CPU has floating-point registers, save them
 *                                                 during a context switch.
 *
-* Returns    : OS_ERR_NONE             if the function was successful.
-*              OS_PRIO_EXIT            if the task priority already exist
-*                                      (each task MUST have a unique priority).
-*              OS_ERR_PRIO_INVALID     if the priority you specify is higher that the maximum allowed
-*                                      (i.e. > OS_LOWEST_PRIO)
-*              OS_ERR_TASK_CREATE_ISR  if you tried to create a task from an ISR.
+* Returns    : OS_ERR_NONE                      if the function was successful.
+*              OS_ERR_PRIO_EXIST                if the task priority already exist
+*                                               (each task MUST have a unique priority).
+*              OS_ERR_PRIO_INVALID              if the priority you specify is higher that the maximum
+*                                               allowed (i.e. > OS_LOWEST_PRIO)
+*              OS_ERR_TASK_CREATE_ISR           if you tried to create a task from an ISR.
+*              OS_ERR_ILLEGAL_CREATE_RUN_TIME   if you tried to create a task after safety critical
+*                                               operation started.
 *********************************************************************************************************
 */
 /*$PAGE*/
@@ -336,10 +343,10 @@ INT8U  OSTaskCreateExt (void   (*task)(void *p_arg),
                         void    *pext,
                         INT16U   opt)
 {
-    OS_STK    *psp;
-    INT8U      err;
+    OS_STK     *psp;
+    INT8U       err;
 #if OS_CRITICAL_METHOD == 3u                 /* Allocate storage for CPU status register               */
-    OS_CPU_SR  cpu_sr = 0u;
+    OS_CPU_SR   cpu_sr = 0u;
 #endif
 
 
@@ -347,6 +354,7 @@ INT8U  OSTaskCreateExt (void   (*task)(void *p_arg),
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (OS_ERR_ILLEGAL_CREATE_RUN_TIME);
     }
 #endif
 
@@ -395,7 +403,7 @@ INT8U  OSTaskCreateExt (void   (*task)(void *p_arg),
 *              its own priority number.  The deleted task is returned to the dormant state and can be
 *              re-activated by creating the deleted task again.
 *
-* Arguments  : prio    is the priority of the task to delete.  Note that you can explicitely delete
+* Arguments  : prio    is the priority of the task to delete.  Note that you can explicitly delete
 *                      the current task without knowing its priority level by setting 'prio' to
 *                      OS_PRIO_SELF.
 *
@@ -525,7 +533,7 @@ INT8U  OSTaskDel (INT8U prio)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                    REQUEST THAT A TASK DELETE ITSELF
+*                                  REQUEST THAT A TASK DELETE ITSELF
 *
 * Description: This function is used to:
 *                   a) notify a task to delete itself.
@@ -614,7 +622,7 @@ INT8U  OSTaskDelReq (INT8U prio)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        GET THE NAME OF A TASK
+*                                       GET THE NAME OF A TASK
 *
 * Description: This function is called to obtain the name of a task.
 *
@@ -652,6 +660,7 @@ INT8U  OSTaskNameGet (INT8U    prio,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -697,7 +706,7 @@ INT8U  OSTaskNameGet (INT8U    prio,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        ASSIGN A NAME TO A TASK
+*                                       ASSIGN A NAME TO A TASK
 *
 * Description: This function is used to set the name of a task.
 *
@@ -732,6 +741,7 @@ void  OSTaskNameSet (INT8U   prio,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -775,7 +785,7 @@ void  OSTaskNameSet (INT8U   prio,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        RESUME A SUSPENDED TASK
+*                                       RESUME A SUSPENDED TASK
 *
 * Description: This function is called to resume a previously suspended task.  This is the only call that
 *              will remove an explicit task suspension.
@@ -841,7 +851,7 @@ INT8U  OSTaskResume (INT8U prio)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                             STACK CHECKING
+*                                           STACK CHECKING
 *
 * Description: This function is called to check the amount of free memory left on the specified task's
 *              stack.
@@ -914,15 +924,15 @@ INT8U  OSTaskStkChk (INT8U         prio,
         nfree++;
     }
 #endif
-    p_stk_data->OSFree = nfree * sizeof(OS_STK);          /* Compute number of free bytes on the stack */
-    p_stk_data->OSUsed = (size - nfree) * sizeof(OS_STK); /* Compute number of bytes used on the stack */
+    p_stk_data->OSFree = nfree;                       /* Store   number of free entries on the stk     */
+    p_stk_data->OSUsed = size - nfree;                /* Compute number of entries used on the stk     */
     return (OS_ERR_NONE);
 }
 #endif
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                            SUSPEND A TASK
+*                                           SUSPEND A TASK
 *
 * Description: This function is called to suspend a task.  The task can be the calling task if the
 *              priority passed to OSTaskSuspend() is the priority of the calling task or OS_PRIO_SELF.
@@ -1059,7 +1069,7 @@ INT8U  OSTaskQuery (INT8U    prio,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                 GET THE CURRENT VALUE OF A TASK REGISTER
+*                              GET THE CURRENT VALUE OF A TASK REGISTER
 *
 * Description: This function is called to obtain the current value of a task register.  Task registers
 *              are application specific and can be used to store task specific values such as 'error
@@ -1095,6 +1105,14 @@ INT32U  OSTaskRegGet (INT8U   prio,
     OS_TCB    *ptcb;
 
 
+
+#ifdef OS_SAFETY_CRITICAL
+    if (perr == (INT8U *)0) {
+        OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
+    }
+#endif
+
 #if OS_ARG_CHK_EN > 0u
     if (prio >= OS_LOWEST_PRIO) {
         if (prio != OS_PRIO_SELF) {
@@ -1122,8 +1140,57 @@ INT32U  OSTaskRegGet (INT8U   prio,
 
 /*$PAGE*/
 /*
+************************************************************************************************************************
+*                                    ALLOCATE THE NEXT AVAILABLE TASK REGISTER ID
+*
+* Description: This function is called to obtain a task register ID.  This function thus allows task registers IDs to be
+*              allocated dynamically instead of statically.
+*
+* Arguments  : p_err       is a pointer to a variable that will hold an error code related to this call.
+*
+*                            OS_ERR_NONE               if the call was successful
+*                            OS_ERR_NO_MORE_ID_AVAIL   if you are attempting to assign more task register IDs than you 
+*                                                           have available through OS_TASK_REG_TBL_SIZE.
+*
+* Returns    : The next available task register 'id' or OS_TASK_REG_TBL_SIZE if an error is detected.
+************************************************************************************************************************
+*/
+
+#if OS_TASK_REG_TBL_SIZE > 0u
+INT8U  OSTaskRegGetID (INT8U  *perr)
+{
+#if OS_CRITICAL_METHOD == 3u                                    /* Allocate storage for CPU status register           */
+    OS_CPU_SR  cpu_sr = 0u;
+#endif
+    INT8U      id;
+
+
+#ifdef OS_SAFETY_CRITICAL
+    if (perr == (INT8U *)0) {
+        OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((INT8U)OS_TASK_REG_TBL_SIZE);
+    }
+#endif
+
+    OS_ENTER_CRITICAL();
+    if (OSTaskRegNextAvailID >= OS_TASK_REG_TBL_SIZE) {         /* See if we exceeded the number of IDs available     */
+       *perr = OS_ERR_NO_MORE_ID_AVAIL;                         /* Yes, cannot allocate more task register IDs        */
+        OS_EXIT_CRITICAL();
+        return ((INT8U)OS_TASK_REG_TBL_SIZE);
+    }
+     
+    id   = OSTaskRegNextAvailID;                                /* Assign the next available ID                       */
+    OSTaskRegNextAvailID++;                                     /* Increment available ID for next request            */
+    OS_EXIT_CRITICAL();
+   *perr = OS_ERR_NONE;
+    return (id);
+}
+#endif
+
+/*$PAGE*/
+/*
 *********************************************************************************************************
-*                                 SET THE CURRENT VALUE OF A TASK VARIABLE
+*                              SET THE CURRENT VALUE OF A TASK VARIABLE
 *
 * Description: This function is called to change the current value of a task register.  Task registers
 *              are application specific and can be used to store task specific values such as 'error
@@ -1161,6 +1228,13 @@ void  OSTaskRegSet (INT8U    prio,
     OS_TCB    *ptcb;
 
 
+#ifdef OS_SAFETY_CRITICAL
+    if (perr == (INT8U *)0) {
+        OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
+    }
+#endif
+
 #if OS_ARG_CHK_EN > 0u
     if (prio >= OS_LOWEST_PRIO) {
         if (prio != OS_PRIO_SELF) {
@@ -1188,7 +1262,7 @@ void  OSTaskRegSet (INT8U    prio,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                              CATCH ACCIDENTAL TASK RETURN
+*                                    CATCH ACCIDENTAL TASK RETURN
 *
 * Description: This function is called if a task accidentally returns without deleting itself.  In other
 *              words, a task should either be an infinite loop or delete itself if it's done.
@@ -1217,7 +1291,7 @@ void  OS_TaskReturn (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        CLEAR TASK STACK
+*                                          CLEAR TASK STACK
 *
 * Description: This function is used to clear the stack of a task (i.e. write all zeros)
 *
@@ -1260,4 +1334,3 @@ void  OS_TaskStkClr (OS_STK  *pbos,
 }
 
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

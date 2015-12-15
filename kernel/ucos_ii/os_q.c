@@ -4,22 +4,24 @@
 *                                          The Real-Time Kernel
 *                                        MESSAGE QUEUE MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2012, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_Q.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92.07
 *
 * LICENSING TERMS:
 * ---------------
 *   uC/OS-II is provided in source form for FREE evaluation, for educational use or for peaceful research.
-* If you plan on using  uC/OS-II  in a commercial product you need to contact Micriµm to properly license
+* If you plan on using  uC/OS-II  in a commercial product you need to contact Micrium to properly license
 * its use in your product. We provide ALL the source code for your convenience and to help you experience
 * uC/OS-II.   The fact that the  source is provided does  NOT  mean that you can use it without  paying a
 * licensing fee.
 *********************************************************************************************************
 */
+
+#define  MICRIUM_SOURCE
 
 #ifndef  OS_MASTER_FILE
 #include <ucos_ii.h>
@@ -72,6 +74,7 @@ void  *OSQAccept (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((void *)0);
     }
 #endif
 
@@ -105,7 +108,7 @@ void  *OSQAccept (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        CREATE A MESSAGE QUEUE
+*                                       CREATE A MESSAGE QUEUE
 *
 * Description: This function creates a message queue if free event control blocks are available.
 *
@@ -136,6 +139,7 @@ OS_EVENT  *OSQCreate (void    **start,
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_EVENT *)0);
     }
 #endif
 
@@ -166,7 +170,7 @@ OS_EVENT  *OSQCreate (void    **start,
 #if OS_EVENT_NAME_EN > 0u
             pevent->OSEventName    = (INT8U *)(void *)"?";
 #endif
-            OS_EventWaitListInit(pevent);                 /*      Initalize the wait list              */
+            OS_EventWaitListInit(pevent);                 /*      Initialize the wait list             */
         } else {
             pevent->OSEventPtr = (void *)OSEventFreeList; /* No,  Return event control block on error  */
             OSEventFreeList    = pevent;
@@ -179,7 +183,7 @@ OS_EVENT  *OSQCreate (void    **start,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        DELETE A MESSAGE QUEUE
+*                                       DELETE A MESSAGE QUEUE
 *
 * Description: This function deletes a message queue and readies all tasks pending on the queue.
 *
@@ -215,6 +219,8 @@ OS_EVENT  *OSQCreate (void    **start,
 *                 type call) then your application MUST release the memory storage by call the counterpart
 *                 call of the dynamic allocation scheme used.  If the queue storage was created statically
 *                 then, the storage can be reused.
+*              6) All tasks that were waiting for the queue will be readied and returned an 
+*                 OS_ERR_PEND_ABORT if OSQDel() was called with OS_DEL_ALWAYS
 *********************************************************************************************************
 */
 
@@ -235,6 +241,7 @@ OS_EVENT  *OSQDel (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_EVENT *)0);
     }
 #endif
 
@@ -283,7 +290,7 @@ OS_EVENT  *OSQDel (OS_EVENT  *pevent,
 
         case OS_DEL_ALWAYS:                                /* Always delete the queue                  */
              while (pevent->OSEventGrp != 0u) {            /* Ready ALL tasks waiting for queue        */
-                 (void)OS_EventTaskRdy(pevent, (void *)0, OS_STAT_Q, OS_STAT_PEND_OK);
+                 (void)OS_EventTaskRdy(pevent, (void *)0, OS_STAT_Q, OS_STAT_PEND_ABORT);
              }
 #if OS_EVENT_NAME_EN > 0u
              pevent->OSEventName    = (INT8U *)(void *)"?";
@@ -364,7 +371,7 @@ INT8U  OSQFlush (OS_EVENT *pevent)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                     PEND ON A QUEUE FOR A MESSAGE
+*                                    PEND ON A QUEUE FOR A MESSAGE
 *
 * Description: This function waits for a message to be sent to a queue
 *
@@ -413,6 +420,7 @@ void  *OSQPend (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((void *)0);
     }
 #endif
 
@@ -484,7 +492,7 @@ void  *OSQPend (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                      ABORT WAITING ON A MESSAGE QUEUE
+*                                  ABORT WAITING ON A MESSAGE QUEUE
 *
 * Description: This function aborts & readies any tasks currently waiting on a queue.  This function
 *              should be used to fault-abort the wait on the queue, rather than to normally signal
@@ -529,6 +537,7 @@ INT8U  OSQPendAbort (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -573,7 +582,7 @@ INT8U  OSQPendAbort (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        POST MESSAGE TO A QUEUE
+*                                       POST MESSAGE TO A QUEUE
 *
 * Description: This function sends a message to a queue
 *
@@ -634,7 +643,7 @@ INT8U  OSQPost (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                   POST MESSAGE TO THE FRONT OF A QUEUE
+*                                POST MESSAGE TO THE FRONT OF A QUEUE
 *
 * Description: This function sends a message to a queue but unlike OSQPost(), the message is posted at
 *              the front instead of the end of the queue.  Using OSQPostFront() allows you to send
@@ -698,7 +707,7 @@ INT8U  OSQPostFront (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        POST MESSAGE TO A QUEUE
+*                                       POST MESSAGE TO A QUEUE
 *
 * Description: This function sends a message to a queue.  This call has been added to reduce code size
 *              since it can replace both OSQPost() and OSQPostFront().  Also, this function adds the
@@ -755,7 +764,7 @@ INT8U  OSQPostOpt (OS_EVENT  *pevent,
             (void)OS_EventTaskRdy(pevent, pmsg, OS_STAT_Q, OS_STAT_PEND_OK);
         }
         OS_EXIT_CRITICAL();
-        if ((opt & OS_POST_OPT_NO_SCHED) == 0u) {	  /* See if scheduler needs to be invoked          */
+        if ((opt & OS_POST_OPT_NO_SCHED) == 0u) {     /* See if scheduler needs to be invoked          */
             OS_Sched();                               /* Find highest priority task ready to run       */
         }
         return (OS_ERR_NONE);
@@ -849,7 +858,7 @@ INT8U  OSQQuery (OS_EVENT  *pevent,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                      QUEUE MODULE INITIALIZATION
+*                                     QUEUE MODULE INITIALIZATION
 *
 * Description : This function is called by uC/OS-II to initialize the message queue module.  Your
 *               application MUST NOT call this function.
@@ -890,4 +899,3 @@ void  OS_QInit (void)
 #endif
 }
 #endif                                               /* OS_Q_EN                                        */
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

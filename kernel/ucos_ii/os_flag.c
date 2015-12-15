@@ -4,22 +4,24 @@
 *                                          The Real-Time Kernel
 *                                         EVENT FLAG  MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2012, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_FLAG.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92.07
 *
 * LICENSING TERMS:
 * ---------------
 *   uC/OS-II is provided in source form for FREE evaluation, for educational use or for peaceful research.
-* If you plan on using  uC/OS-II  in a commercial product you need to contact Micriµm to properly license
+* If you plan on using  uC/OS-II  in a commercial product you need to contact Micrium to properly license
 * its use in your product. We provide ALL the source code for your convenience and to help you experience
 * uC/OS-II.   The fact that the  source is provided does  NOT  mean that you can use it without  paying a
 * licensing fee.
 *********************************************************************************************************
 */
+
+#define  MICRIUM_SOURCE
 
 #ifndef  OS_MASTER_FILE
 #include <ucos_ii.h>
@@ -28,17 +30,17 @@
 #if (OS_FLAG_EN > 0u) && (OS_MAX_FLAGS > 0u)
 /*
 *********************************************************************************************************
-*                                            LOCAL PROTOTYPES
+*                                          LOCAL PROTOTYPES
 *********************************************************************************************************
 */
 
 static  void     OS_FlagBlock(OS_FLAG_GRP *pgrp, OS_FLAG_NODE *pnode, OS_FLAGS flags, INT8U wait_type, INT32U timeout);
-static  BOOLEAN  OS_FlagTaskRdy(OS_FLAG_NODE *pnode, OS_FLAGS flags_rdy);
+static  BOOLEAN  OS_FlagTaskRdy(OS_FLAG_NODE *pnode, OS_FLAGS flags_rdy, INT8U pend_stat);
 
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                              CHECK THE STATUS OF FLAGS IN AN EVENT FLAG GROUP
+*                          CHECK THE STATUS OF FLAGS IN AN EVENT FLAG GROUP
 *
 * Description: This function is called to check the status of a combination of bits to be set or cleared
 *              in an event flag group.  Your application can check for ANY bit to be set/cleared or ALL
@@ -106,6 +108,7 @@ OS_FLAGS  OSFlagAccept (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAGS)0);
     }
 #endif
 
@@ -193,7 +196,7 @@ OS_FLAGS  OSFlagAccept (OS_FLAG_GRP  *pgrp,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                           CREATE AN EVENT FLAG
+*                                        CREATE AN EVENT FLAG
 *
 * Description: This function is called to create an event flag group.
 *
@@ -224,12 +227,14 @@ OS_FLAG_GRP  *OSFlagCreate (OS_FLAGS  flags,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAG_GRP *)0);
     }
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAG_GRP *)0);
     }
 #endif
 
@@ -291,6 +296,8 @@ OS_FLAG_GRP  *OSFlagCreate (OS_FLAGS  flags,
 *                 the event flag group MUST check the return code of OSFlagAccept() and OSFlagPend().
 *              2) This call can potentially disable interrupts for a long time.  The interrupt disable
 *                 time is directly proportional to the number of tasks waiting on the event flag group.
+*              3) All tasks that were waiting for the event flag will be readied and returned an 
+*                 OS_ERR_PEND_ABORT if OSFlagDel() was called with OS_DEL_ALWAYS
 *********************************************************************************************************
 */
 
@@ -311,6 +318,7 @@ OS_FLAG_GRP  *OSFlagDel (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAG_GRP *)0);
     }
 #endif
 
@@ -357,7 +365,7 @@ OS_FLAG_GRP  *OSFlagDel (OS_FLAG_GRP  *pgrp,
         case OS_DEL_ALWAYS:                                /* Always delete the event flag group       */
              pnode = (OS_FLAG_NODE *)pgrp->OSFlagWaitList;
              while (pnode != (OS_FLAG_NODE *)0) {          /* Ready ALL tasks waiting for flags        */
-                 (void)OS_FlagTaskRdy(pnode, (OS_FLAGS)0);
+                 (void)OS_FlagTaskRdy(pnode, (OS_FLAGS)0, OS_STAT_PEND_ABORT);
                  pnode = (OS_FLAG_NODE *)pnode->OSFlagNodeNext;
              }
 #if OS_FLAG_NAME_EN > 0u
@@ -423,6 +431,7 @@ INT8U  OSFlagNameGet (OS_FLAG_GRP   *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -457,7 +466,7 @@ INT8U  OSFlagNameGet (OS_FLAG_GRP   *pgrp,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                 ASSIGN A NAME TO AN EVENT FLAG GROUP
+*                                ASSIGN A NAME TO AN EVENT FLAG GROUP
 *
 * Description: This function assigns a name to an event flag group.
 *
@@ -492,6 +501,7 @@ void  OSFlagNameSet (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -525,7 +535,7 @@ void  OSFlagNameSet (OS_FLAG_GRP  *pgrp,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                        WAIT ON AN EVENT FLAG GROUP
+*                                     WAIT ON AN EVENT FLAG GROUP
 *
 * Description: This function is called to wait for a combination of bits to be set in an event flag
 *              group.  Your application can wait for ANY bit to be set or ALL bits to be set.
@@ -597,6 +607,7 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAGS)0);
     }
 #endif
 
@@ -749,7 +760,7 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *pgrp,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                               GET FLAGS WHO CAUSED TASK TO BECOME READY
+*                              GET FLAGS WHO CAUSED TASK TO BECOME READY
 *
 * Description: This function is called to obtain the flags that caused the task to become ready to run.
 *              In other words, this function allows you to tell "Who done it!".
@@ -780,7 +791,7 @@ OS_FLAGS  OSFlagPendGetFlagsRdy (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                         POST EVENT FLAG BIT(S)
+*                                       POST EVENT FLAG BIT(S)
 *
 * Description: This function is called to set or clear some bits in an event flag group.  The bits to
 *              set or clear are specified by a 'bit mask'.
@@ -838,6 +849,7 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAGS)0);
     }
 #endif
 
@@ -873,8 +885,8 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *pgrp,
         switch (pnode->OSFlagNodeWaitType) {
             case OS_FLAG_WAIT_SET_ALL:               /* See if all req. flags are set for current node */
                  flags_rdy = (OS_FLAGS)(pgrp->OSFlagFlags & pnode->OSFlagNodeFlags);
-                 if (flags_rdy == pnode->OSFlagNodeFlags) {
-                     rdy = OS_FlagTaskRdy(pnode, flags_rdy);  /* Make task RTR, event(s) Rx'd          */
+                 if (flags_rdy == pnode->OSFlagNodeFlags) {   /* Make task RTR, event(s) Rx'd          */
+                     rdy = OS_FlagTaskRdy(pnode, flags_rdy, OS_STAT_PEND_OK);  
                      if (rdy == OS_TRUE) {
                          sched = OS_TRUE;                     /* When done we will reschedule          */
                      }
@@ -883,8 +895,8 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *pgrp,
 
             case OS_FLAG_WAIT_SET_ANY:               /* See if any flag set                            */
                  flags_rdy = (OS_FLAGS)(pgrp->OSFlagFlags & pnode->OSFlagNodeFlags);
-                 if (flags_rdy != (OS_FLAGS)0) {
-                     rdy = OS_FlagTaskRdy(pnode, flags_rdy);  /* Make task RTR, event(s) Rx'd          */
+                 if (flags_rdy != (OS_FLAGS)0) {              /* Make task RTR, event(s) Rx'd          */
+                     rdy = OS_FlagTaskRdy(pnode, flags_rdy, OS_STAT_PEND_OK);  
                      if (rdy == OS_TRUE) {
                          sched = OS_TRUE;                     /* When done we will reschedule          */
                      }
@@ -894,8 +906,8 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *pgrp,
 #if OS_FLAG_WAIT_CLR_EN > 0u
             case OS_FLAG_WAIT_CLR_ALL:               /* See if all req. flags are set for current node */
                  flags_rdy = (OS_FLAGS)~pgrp->OSFlagFlags & pnode->OSFlagNodeFlags;
-                 if (flags_rdy == pnode->OSFlagNodeFlags) {
-                     rdy = OS_FlagTaskRdy(pnode, flags_rdy);  /* Make task RTR, event(s) Rx'd          */
+                 if (flags_rdy == pnode->OSFlagNodeFlags) {   /* Make task RTR, event(s) Rx'd          */
+                     rdy = OS_FlagTaskRdy(pnode, flags_rdy, OS_STAT_PEND_OK);  
                      if (rdy == OS_TRUE) {
                          sched = OS_TRUE;                     /* When done we will reschedule          */
                      }
@@ -904,8 +916,8 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *pgrp,
 
             case OS_FLAG_WAIT_CLR_ANY:               /* See if any flag set                            */
                  flags_rdy = (OS_FLAGS)~pgrp->OSFlagFlags & pnode->OSFlagNodeFlags;
-                 if (flags_rdy != (OS_FLAGS)0) {
-                     rdy = OS_FlagTaskRdy(pnode, flags_rdy);  /* Make task RTR, event(s) Rx'd          */
+                 if (flags_rdy != (OS_FLAGS)0) {              /* Make task RTR, event(s) Rx'd          */
+                     rdy = OS_FlagTaskRdy(pnode, flags_rdy, OS_STAT_PEND_OK);  
                      if (rdy == OS_TRUE) {
                          sched = OS_TRUE;                     /* When done we will reschedule          */
                      }
@@ -932,7 +944,7 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *pgrp,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                           QUERY EVENT FLAG
+*                                          QUERY EVENT FLAG
 *
 * Description: This function is used to check the value of the event flag group.
 *
@@ -963,6 +975,7 @@ OS_FLAGS  OSFlagQuery (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAGS)0);
     }
 #endif
 
@@ -987,7 +1000,7 @@ OS_FLAGS  OSFlagQuery (OS_FLAG_GRP  *pgrp,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                         SUSPEND TASK UNTIL EVENT FLAG(s) RECEIVED OR TIMEOUT OCCURS
+*                     SUSPEND TASK UNTIL EVENT FLAG(s) RECEIVED OR TIMEOUT OCCURS
 *
 * Description: This function is internal to uC/OS-II and is used to put a task to sleep until the desired
 *              event flag bit(s) are set.
@@ -1060,7 +1073,7 @@ static  void  OS_FlagBlock (OS_FLAG_GRP  *pgrp,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                    INITIALIZE THE EVENT FLAG MODULE
+*                                  INITIALIZE THE EVENT FLAG MODULE
 *
 * Description: This function is called by uC/OS-II to initialize the event flag module.  Your application
 *              MUST NOT call this function.  In other words, this function is internal to uC/OS-II.
@@ -1127,6 +1140,9 @@ void  OS_FlagInit (void)
 *              flags_rdy     contains the bit pattern of the event flags that cause the task to become
 *                            ready-to-run.
 *
+*              pend_stat   is used to indicate the readied task's pending status:
+*
+*
 * Returns    : OS_TRUE       If the task has been placed in the ready list and thus needs scheduling
 *              OS_FALSE      The task is still not ready to run and thus scheduling is not necessary
 *
@@ -1138,7 +1154,8 @@ void  OS_FlagInit (void)
 */
 
 static  BOOLEAN  OS_FlagTaskRdy (OS_FLAG_NODE *pnode,
-                                 OS_FLAGS      flags_rdy)
+                                 OS_FLAGS      flags_rdy,
+                                 INT8U         pend_stat)
 {
     OS_TCB   *ptcb;
     BOOLEAN   sched;
@@ -1148,7 +1165,7 @@ static  BOOLEAN  OS_FlagTaskRdy (OS_FLAG_NODE *pnode,
     ptcb->OSTCBDly       = 0u;
     ptcb->OSTCBFlagsRdy  = flags_rdy;
     ptcb->OSTCBStat     &= (INT8U)~(INT8U)OS_STAT_FLAG;
-    ptcb->OSTCBStatPend  = OS_STAT_PEND_OK;
+    ptcb->OSTCBStatPend  = pend_stat;
     if (ptcb->OSTCBStat == OS_STAT_RDY) {                  /* Task now ready?                          */
         OSRdyGrp               |= ptcb->OSTCBBitY;         /* Put task into ready list                 */
         OSRdyTbl[ptcb->OSTCBY] |= ptcb->OSTCBBitX;
@@ -1163,7 +1180,7 @@ static  BOOLEAN  OS_FlagTaskRdy (OS_FLAG_NODE *pnode,
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                  UNLINK EVENT FLAG NODE FROM WAITING LIST
+*                              UNLINK EVENT FLAG NODE FROM WAITING LIST
 *
 * Description: This function is internal to uC/OS-II and is used to unlink an event flag node from a
 *              list of tasks waiting for the event flag.
@@ -1212,4 +1229,3 @@ void  OS_FlagUnlink (OS_FLAG_NODE *pnode)
 #endif
 }
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

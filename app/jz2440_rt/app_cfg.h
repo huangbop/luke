@@ -2,7 +2,7 @@
 #define APP_CFG_H
 
 
-#define OS_TASK_TMR_PRIO   10
+/* #define OS_TASK_TMR_PRIO   10 */
 
 
 #endif /* APP_CFG_H */

@@ -1,10 +1,6 @@
 #include "s3c24x0.h"
-
-
-
-unsigned interrupt_switch_flag;
-unsigned interrupt_switch_from;
-unsigned interrupt_switch_to;
+#include "ucos_ii.h"
+#include "stdint.h"
 
 
 void s4_push()
@@ -13,24 +9,28 @@ void s4_push()
 }
 
 
-void do_irq(void)
+void OS_CPU_ExceptHndlr(uint32_t type)
 {
-	int offset;
+    int offset;
 
-	offset = INTOFFSET;
+    ClearPending(1 << offset);
 
-	switch (offset) {
-	case 2:			/* S4 pushed */
-		s4_push();
-		break;
-	case 10:		/* timer0 */
-		
-		break;
-	default:
-		break;
-	}
+    if (type == OS_CPU_ARM_EXCEPT_IRQ)
+    {
 
-	
+        offset = INTOFFSET;
 
-	ClearPending(1 << offset);
+        switch (offset) {
+        case 2:			/* S4 pushed */
+            s4_push();
+            break;
+        case 10:		/* timer0 */
+
+            break;
+        default:
+            break;
+        }
+
+    }
+
 }
