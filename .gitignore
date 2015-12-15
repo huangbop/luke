@@ -42,3 +42,7 @@ cscope.*
 Debug/
 Release/
 
+GPATH
+GRTAGS
+GTAGS
+*.ini
