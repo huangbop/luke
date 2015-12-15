@@ -24,7 +24,7 @@ void do_irq(void)
 		s4_push();
 		break;
 	case 10:		/* timer0 */
-		rt_tick_increase();
+		
 		break;
 	default:
 		break;
