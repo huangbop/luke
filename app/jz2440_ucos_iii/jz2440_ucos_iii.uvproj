@@ -402,6 +402,23 @@
           </LDads>
         </TargetArmAds>
       </TargetOption>
+      <Groups>
+        <Group>
+          <GroupName>boot</GroupName>
+        </Group>
+        <Group>
+          <GroupName>lib</GroupName>
+        </Group>
+        <Group>
+          <GroupName>kernel</GroupName>
+        </Group>
+        <Group>
+          <GroupName>ports</GroupName>
+        </Group>
+        <Group>
+          <GroupName>user</GroupName>
+        </Group>
+      </Groups>
     </Target>
   </Targets>
 

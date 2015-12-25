@@ -47,3 +47,5 @@ GRTAGS
 GTAGS
 
 *.stg
+*.htm
+*.html
