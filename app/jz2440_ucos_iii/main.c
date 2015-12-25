@@ -1,15 +1,22 @@
 #include "board.h"
+#include "os.h"
 
 
 
 
 int main()
 {
-	board_init();
+    OS_ERR err;
 
 
-  while (1)
-      ;
+    board_init();
 
-	return 0;
+    OSInit(&err);
+
+    OSStart(&err);
+
+    while (1)
+        ;
+
+    return 0;
 }

@@ -63,6 +63,8 @@ CPU_ARM_CTRL_IRQ_DIS  EQU       0x80                            ; Disable IRQ.
 ;                                      CODE GENERATION DIRECTIVES
 ;********************************************************************************************************
 
+    require8
+    preserve8
     AREA CODE, CODE, READONLY
     CODE32
 

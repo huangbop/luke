@@ -32,6 +32,7 @@ __usr_stack_end
 __heap		SPACE 	0
 __heap_end	
 
+      import OS_CPU_ARM_ExceptIrqHndlr
 
 	;; RESET entry
         PRESERVE8
@@ -54,7 +55,7 @@ _und_handler	DCD	und_handler
 _swi_handler	DCD	swi_handler
 _pabt_handler	DCD	pabt_handler
 _dabt_handler	DCD	dabt_handler
-_irq_handler	DCD irq_handler
+_irq_handler	DCD OS_CPU_ARM_ExceptIrqHndlr
 _fiq_handler	DCD	fiq_handler
 
 
@@ -92,8 +93,8 @@ reset_handler
 	LDR	SL, =__svc_stack
 
 	;; Goto c main
-	IMPORT 	main
-	LDR	R0, =main
+	IMPORT 	__main
+	LDR	R0, =__main
 	BX	R0
 
 
