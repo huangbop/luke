@@ -49,3 +49,4 @@ GTAGS
 *.stg
 *.htm
 *.html
+_output/
