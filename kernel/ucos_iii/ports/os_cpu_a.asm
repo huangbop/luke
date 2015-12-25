@@ -21,7 +21,7 @@
 ;
 
 ;********************************************************************************************************
-;                                          PUBLIC FUNCTIONS
+;                                          EXPORT FUNCTIONS
 ;********************************************************************************************************
                                                                 ; External references.
     EXTERN  OSRunning
@@ -37,17 +37,17 @@
     EXTERN  OS_CPU_ExceptStkPtr
 
                                                                 ; Functions declared in this file.
-    PUBLIC  OSStartHighRdy
-    PUBLIC  OSCtxSw
-    PUBLIC  OSIntCtxSw
+    EXPORT  OSStartHighRdy
+    EXPORT  OSCtxSw
+    EXPORT  OSIntCtxSw
 
                                                                 ; Functions related to exception handling.
-    PUBLIC  OS_CPU_ARM_ExceptUndefInstrHndlr
-    PUBLIC  OS_CPU_ARM_ExceptSwiHndlr
-    PUBLIC  OS_CPU_ARM_ExceptPrefetchAbortHndlr
-    PUBLIC  OS_CPU_ARM_ExceptDataAbortHndlr
-    PUBLIC  OS_CPU_ARM_ExceptIrqHndlr
-    PUBLIC  OS_CPU_ARM_ExceptFiqHndlr
+    EXPORT  OS_CPU_ARM_ExceptUndefInstrHndlr
+    EXPORT  OS_CPU_ARM_ExceptSwiHndlr
+    EXPORT  OS_CPU_ARM_ExceptPrefetchAbortHndlr
+    EXPORT  OS_CPU_ARM_ExceptDataAbortHndlr
+    EXPORT  OS_CPU_ARM_ExceptIrqHndlr
+    EXPORT  OS_CPU_ARM_ExceptFiqHndlr
 
     EXTERN  OS_CPU_ExceptHndlr                                  ; Chip Support specific exception handler.
 
@@ -84,7 +84,7 @@ OS_CPU_ARM_EXCEPT_FIQ             EQU  0x07
 ;                                     CODE GENERATION DIRECTIVES
 ;********************************************************************************************************
 
-    RSEG CODE:CODE:NOROOT(2)
+    AREA CODE, CODE, READONLY
     CODE32
 
 

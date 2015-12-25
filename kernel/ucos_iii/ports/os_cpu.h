@@ -60,7 +60,7 @@
 *********************************************************************************************************
 */
 
-                                                            /* ARM exception IDs                                      */
+/* ARM exception IDs                                      */
 #define  OS_CPU_ARM_EXCEPT_RESET                                                                    0x00u
 #define  OS_CPU_ARM_EXCEPT_UNDEF_INSTR                                                              0x01u
 #define  OS_CPU_ARM_EXCEPT_SWI                                                                      0x02u
@@ -70,7 +70,7 @@
 #define  OS_CPU_ARM_EXCEPT_IRQ                                                                      0x06u
 #define  OS_CPU_ARM_EXCEPT_FIQ                                                                      0x07u
 #define  OS_CPU_ARM_EXCEPT_NBR                                                                      0x08u
-                                                            /* ARM exception vectors addresses                        */
+/* ARM exception vectors addresses                        */
 #define  OS_CPU_ARM_EXCEPT_RESET_VECT_ADDR              (OS_CPU_ARM_EXCEPT_RESET          * 0x04u + 0x00u)
 #define  OS_CPU_ARM_EXCEPT_UNDEF_INSTR_VECT_ADDR        (OS_CPU_ARM_EXCEPT_UNDEF_INSTR    * 0x04u + 0x00u)
 #define  OS_CPU_ARM_EXCEPT_SWI_VECT_ADDR                (OS_CPU_ARM_EXCEPT_SWI            * 0x04u + 0x00u)
@@ -80,7 +80,7 @@
 #define  OS_CPU_ARM_EXCEPT_IRQ_VECT_ADDR                (OS_CPU_ARM_EXCEPT_IRQ            * 0x04u + 0x00u)
 #define  OS_CPU_ARM_EXCEPT_FIQ_VECT_ADDR                (OS_CPU_ARM_EXCEPT_FIQ            * 0x04u + 0x00u)
 
-                                                            /* ARM exception handlers addresses                       */
+/* ARM exception handlers addresses                       */
 #define  OS_CPU_ARM_EXCEPT_RESET_HANDLER_ADDR           (OS_CPU_ARM_EXCEPT_RESET          * 0x04u + 0x20u)
 #define  OS_CPU_ARM_EXCEPT_UNDEF_INSTR_HANDLER_ADDR     (OS_CPU_ARM_EXCEPT_UNDEF_INSTR    * 0x04u + 0x20u)
 #define  OS_CPU_ARM_EXCEPT_SWI_HANDLER_ADDR             (OS_CPU_ARM_EXCEPT_SWI            * 0x04u + 0x20u)
@@ -90,9 +90,9 @@
 #define  OS_CPU_ARM_EXCEPT_IRQ_HANDLER_ADDR             (OS_CPU_ARM_EXCEPT_IRQ            * 0x04u + 0x20u)
 #define  OS_CPU_ARM_EXCEPT_FIQ_HANDLER_ADDR             (OS_CPU_ARM_EXCEPT_FIQ            * 0x04u + 0x20u)
 
-                                                            /* ARM "Jump To Self" asm instruction                     */
+/* ARM "Jump To Self" asm instruction                     */
 #define  OS_CPU_ARM_INSTR_JUMP_TO_SELF                   0xEAFFFFFEu
-                                                            /* ARM "Jump To Exception Handler" asm instruction        */
+/* ARM "Jump To Exception Handler" asm instruction        */
 #define  OS_CPU_ARM_INSTR_JUMP_TO_HANDLER                0xE59FF018u
 
 /*
@@ -143,24 +143,24 @@ OS_CPU_EXT  CPU_STK  *OS_CPU_ExceptStkPtr;
 *********************************************************************************************************
 */
 
-__arm  void  OSCtxSw                            (void);
-__arm  void  OSIntCtxSw                         (void);
-__arm  void  OSStartHighRdy                     (void);
+void  OSCtxSw                            (void);
+void  OSIntCtxSw                         (void);
+void  OSStartHighRdy                     (void);
 
-       void  OS_CPU_InitExceptVect              (void);
+void  OS_CPU_InitExceptVect              (void);
 
-__arm  void  OS_CPU_ARM_ExceptUndefInstrHndlr   (void);
-__arm  void  OS_CPU_ARM_ExceptSwiHndlr          (void);
-__arm  void  OS_CPU_ARM_ExceptPrefetchAbortHndlr(void);
-__arm  void  OS_CPU_ARM_ExceptDataAbortHndlr    (void);
-__arm  void  OS_CPU_ARM_ExceptAddrAbortHndlr    (void);
-__arm  void  OS_CPU_ARM_ExceptIrqHndlr          (void);
-__arm  void  OS_CPU_ARM_ExceptFiqHndlr          (void);
+void  OS_CPU_ARM_ExceptUndefInstrHndlr   (void);
+void  OS_CPU_ARM_ExceptSwiHndlr          (void);
+void  OS_CPU_ARM_ExceptPrefetchAbortHndlr(void);
+void  OS_CPU_ARM_ExceptDataAbortHndlr    (void);
+void  OS_CPU_ARM_ExceptAddrAbortHndlr    (void);
+void  OS_CPU_ARM_ExceptIrqHndlr          (void);
+void  OS_CPU_ARM_ExceptFiqHndlr          (void);
 
-       void  OS_CPU_ExceptHndlr                 (CPU_INT32U  except_type);
+void  OS_CPU_ExceptHndlr                 (CPU_INT32U  except_type);
 
 #if OS_CPU_ARM_DCC_EN > 0u
-       void  OSDCC_Handler                      (void);
+void  OSDCC_Handler                      (void);
 #endif
 
 #endif
