@@ -1,6 +1,8 @@
 #include <os.h>
 #include "s3c24x0.h"
 
+void uart_puts(const char *str);
+
 void s4_push()
 {
 
@@ -23,7 +25,7 @@ void  OS_CPU_ExceptHndlr (CPU_INT32U  except_id)
             s4_push();
             break;
         case 10:		/* timer0 */
-
+            uart_puts("In timer0\n");
             break;
         default:
             break;
